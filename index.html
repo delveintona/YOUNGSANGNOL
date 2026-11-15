@@ -3,183 +3,225 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YOUNGSANGNOL — 촬영 노하우 &amp; 프로세스</title>
-<meta name="description" content="프리 프로덕션, 프로덕션, 포스트 프로덕션. 촬영감독 겸 연출자의 촬영 노하우와 현장 프로세스를 스크롤로 읽는 교육형 사이트.">
+<title>영상놀, 촬영 노하우와 프로세스</title>
+<meta name="description" content="영상놀 동아리 초보자를 위한 촬영과 연출 가이드. 프리 프로덕션, 프로덕션, 포스트 프로덕션 순서로 스크롤하며 배웁니다.">
 <meta name="theme-color" content="#0b0b0c">
-<meta property="og:title" content="YOUNGSANGNOL — 촬영 노하우 & 프로세스">
+<meta property="og:title" content="영상놀, 촬영 노하우와 프로세스">
 <meta property="og:description" content="찍기 전에, 찍는 동안, 찍고 난 뒤까지.">
 
-<!-- JS가 켜져 있을 때만 등장 효과용 숨김 상태를 적용 -->
+<!-- 스크립트가 켜져 있을 때만 등장 효과용 숨김 상태를 적용 -->
 <script>document.documentElement.classList.add('js');</script>
 
-<!-- 폰트: Anton(제목) / JetBrains Mono(라벨) / Pretendard(본문) -->
+<!-- 폰트: Sofia Sans Extra Condensed(제목) / Barlow(본문) / Pretendard(한글) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:wght@200;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0c'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23e8a33d'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23140f0c'/%3E%3Crect x='10' y='10' width='12' height='12' fill='%23f0a24a'/%3E%3C/svg%3E">
 </head>
 <body>
 <a class="skip" href="#intro">본문으로 건너뛰기</a>
 
-<!-- 화면 전체 장식 -->
-<div class="grain" aria-hidden="true"></div>
-<div class="gridlines" aria-hidden="true"></div>
-
-<!-- 상단 진행바 + 현재 위치 타임코드 -->
+<!-- 상단 진행선과 현재 위치의 타임코드 (보조 정보라 스크린리더에서는 숨김) -->
 <div class="hud" aria-hidden="true">
   <div class="hud__bar"><i id="progress"></i></div>
-  <div class="hud__tc"><span class="rec"></span><span id="hudScene">SCENE 00 / OPEN</span><b id="hudTc">00:00:00:00</b></div>
+  <div class="hud__tc"><span id="hudScene">처음</span><b id="hudTc">00:00:00:00</b></div>
 </div>
 
-<!-- 목차: 데스크톱=좌측 고정, 모바일=상단 가로 바 (내용은 script.js의 CONTENT.toc) -->
+<!-- 목차: 데스크톱은 좌측 고정, 모바일은 상단 가로 바 (내용은 script.js의 CONTENT.toc) -->
 <nav class="toc" id="toc" aria-label="목차">
-  <a class="toc__brand" href="#hero">YOUNGSANGNOL</a>
+  <a class="toc__brand" href="#hero">영상놀</a>
   <ol id="tocList"></ol>
   <p class="toc__foot" id="tocFoot"></p>
 </nav>
 
 <main id="main">
 
-  <!-- ===== 히어로 ===== -->
-  <header class="hero" id="hero" data-scene="SCENE 00 / OPEN">
-    <div class="hero__bg"><div data-ph="hero"></div></div>
-    <div class="hero__shade" id="heroShade"></div>
-    <div class="hero__vig"></div>
-    <div class="hero__inner">
-      <p class="hero__copy" id="heroCopy"></p>
-      <h1 class="hero__title" id="heroTitle"></h1>
-      <p class="hero__sub" id="heroSub"></p>
+  <!-- 히어로 (Poster): 사진 위에 큰 제목, 오른쪽 아래에 한 문장과 버튼 -->
+  <header class="hero" id="hero" data-scene="처음">
+    <div class="hero__bg">
+      <div data-slot="hero">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Farjad_jolani_Cinematographer.jpg/1280px-Farjad_jolani_Cinematographer.jpg"
+             srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Farjad_jolani_Cinematographer.jpg/960px-Farjad_jolani_Cinematographer.jpg 960w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Farjad_jolani_Cinematographer.jpg/1280px-Farjad_jolani_Cinematographer.jpg 1280w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Farjad_jolani_Cinematographer.jpg/1920px-Farjad_jolani_Cinematographer.jpg 1920w"
+             sizes="100vw" width="4623" height="3332" fetchpriority="high" style="object-position: 60% 45%"
+             alt="마스크를 쓴 촬영 스태프가 시네마 카메라로 장면을 잡고 있다">
+      </div>
     </div>
-    <div class="hero__scroll" aria-hidden="true"><span>SCROLL</span><i></i></div>
+    <div class="hero__shade" id="heroShade"></div>
+    <div class="hero__scrim"></div>
+    <span class="hero__top wordmark" id="heroMark"></span>
+    <div class="hero__inner">
+      <h1 id="heroTitle"></h1>
+      <div class="hero__aside">
+        <p id="heroSentence"></p>
+        <div class="hero__actions" id="heroActions"></div>
+      </div>
+    </div>
   </header>
 
-  <!-- ===== 소개 ===== -->
-  <section class="offset pad block perf" id="intro" data-scene="INTRO" aria-labelledby="introTitle">
-    <h2 class="sr-only" id="introTitle">소개</h2>
-    <div class="intro">
-      <div class="intro__lines" id="introLines"></div>
-      <div data-ph="portrait" data-reveal></div>
+  <!-- 소개 -->
+  <section class="offset block" id="intro" data-scene="소개" aria-labelledby="introStatement">
+    <div class="container">
+      <div class="cols">
+        <h2 class="statement ko" id="introStatement" data-reveal></h2>
+        <div class="intro__rest" id="introRest"></div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== SCENE 01 / PRE ===== -->
-  <section class="offset scene perf" id="pre" data-scene="SCENE 01 / PRE" aria-labelledby="preTitle">
-    <div class="chapter" data-chapter="pre">
-      <div class="chapter__stage"><div class="chapter__inner"></div></div>
-    </div>
-    <div class="pad block">
+  <!-- 01 프리 프로덕션 -->
+  <section class="offset scene" id="pre" data-scene="프리 프로덕션" aria-labelledby="preTitle">
+    <div class="chapter" data-chapter="pre"><div class="chapter__stage"><div class="chapter__inner"></div></div></div>
+    <div class="container block">
       <div class="head" id="preHead"></div>
-      <div class="cards" id="preCards"></div>
-      <div style="margin-top: var(--s5)" data-ph="location" data-reveal></div>
+      <div class="sheet" id="preCards"></div>
+      <figure class="plate" style="margin-top: var(--section-gap-s)" data-reveal>
+        <div data-slot="location">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Interior_of_Camille_Pissarro_s_studio_at_%C3%89ragny-sur-Epte_-_2026.jpg/1280px-Interior_of_Camille_Pissarro_s_studio_at_%C3%89ragny-sur-Epte_-_2026.jpg"
+               sizes="(min-width: 64rem) 80vw, 100vw" width="4032" height="2268" loading="lazy" decoding="async"
+               alt="아치형 창으로 햇빛이 들어오는 빈 다락 작업실. 로케이션 헌팅에서 창과 빛의 방향을 확인하는 장면의 대체 사진">
+        </div>
+        <figcaption><span>1</span><span id="capLocation"></span></figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- ===== SCENE 02 / PROD ===== -->
-  <section class="offset scene perf" id="prod" data-scene="SCENE 02 / PROD" aria-labelledby="prodTitle">
-    <div class="chapter" data-chapter="prod">
-      <div class="chapter__stage"><div class="chapter__inner"></div></div>
+  <!-- 02 프로덕션 -->
+  <section class="offset scene" id="prod" data-scene="프로덕션" aria-labelledby="prodTitle">
+    <div class="chapter" data-chapter="prod"><div class="chapter__stage"><div class="chapter__inner"></div></div></div>
+    <div class="container block" style="padding-bottom: var(--section-gap-s)">
+      <div class="head" id="prodHead" style="margin-bottom: 0"></div>
     </div>
 
-    <div class="pad block" style="padding-bottom: var(--s5)">
-      <div class="head" id="prodHead"></div>
-    </div>
-
-    <!-- 현장 하루 타임라인: 스크롤하면 가로로 흘러감 (pin) -->
-    <div class="hscroll" id="timeline" data-scene="SCENE 02 / PROD · DAY" tabindex="-1">
+    <!-- 현장 하루 타임라인: 스크롤하면 가로로 흘러가며 고정(pin) -->
+    <div class="hscroll" id="timeline" data-scene="프로덕션, 현장 하루">
       <div class="hscroll__wrap">
-        <div class="hscroll__head pad" id="dayHead"></div>
+        <div class="hscroll__head" id="dayHead"></div>
         <div class="hscroll__track" id="dayTrack" role="list"></div>
       </div>
     </div>
 
     <!-- 노출 -->
-    <div class="pad sub" id="exposure" data-scene="SCENE 02 / PROD · EXPOSURE">
-      <div class="sub__head" id="expHead"></div>
-      <div class="demo">
-        <div class="scopes">
-          <div class="screen">
-            <span class="screen__tag" id="expTag">NORMAL</span>
-            <canvas id="expCanvas" width="320" height="180" role="img" aria-label="노출 슬라이더에 따라 밝기가 바뀌는 샘플 장면. 창가에 앉은 인물."></canvas>
+    <div class="well grained sub" id="exposure" data-scene="프로덕션, 노출">
+      <div class="container">
+        <div class="head" id="expHead"></div>
+        <div class="demo">
+          <div class="scopes">
+            <figure class="screen" style="margin:0">
+              <span class="screen__tag" id="expTag">적정</span>
+              <canvas id="expCanvas" width="320" height="180" role="img" aria-label="노출 슬라이더에 따라 밝기가 바뀌는 샘플 장면. 창가에 앉은 인물."></canvas>
+            </figure>
+            <figure class="wave" style="margin:0">
+              <figcaption>웨이브폼</figcaption>
+              <canvas id="waveCanvas" width="320" height="150" role="img" aria-label="현재 샘플 장면의 웨이브폼 그래프"></canvas>
+            </figure>
           </div>
-          <div class="wave">
-            <span class="wave__tag">WAVEFORM</span>
-            <canvas id="waveCanvas" width="320" height="150" role="img" aria-label="현재 샘플 장면의 웨이브폼 그래프"></canvas>
+          <div class="controls">
+            <div class="ctl"><div class="ctl__row"><label for="ctlAp">조리개</label><output id="outAp" for="ctlAp">f/2.8</output></div><input id="ctlAp" type="range" min="0" max="7" step="1" value="2"></div>
+            <div class="ctl"><div class="ctl__row"><label for="ctlIso">ISO</label><output id="outIso" for="ctlIso">800</output></div><input id="ctlIso" type="range" min="0" max="6" step="1" value="3"></div>
+            <div class="ctl"><div class="ctl__row"><label for="ctlSh">셔터</label><output id="outSh" for="ctlSh">1/48</output></div><input id="ctlSh" type="range" min="0" max="7" step="1" value="2"></div>
+            <div class="seg">
+              <button class="btn btn--small" id="btnFalse" type="button" aria-pressed="false">폴스컬러</button>
+              <button class="btn btn--small" id="btnReset" type="button">기준값으로</button>
+            </div>
+            <dl class="readout" id="expReadout" aria-live="polite"></dl>
+            <ul class="legend" id="falseLegend" aria-label="폴스컬러 범례"></ul>
+            <p class="note" id="expNote"></p>
           </div>
-        </div>
-        <div class="controls">
-          <div class="ctl"><div class="ctl__row"><label for="ctlAp">조리개 APERTURE</label><output id="outAp" for="ctlAp">f/2.8</output></div><input id="ctlAp" type="range" min="0" max="7" step="1" value="2"></div>
-          <div class="ctl"><div class="ctl__row"><label for="ctlIso">ISO</label><output id="outIso" for="ctlIso">800</output></div><input id="ctlIso" type="range" min="0" max="6" step="1" value="3"></div>
-          <div class="ctl"><div class="ctl__row"><label for="ctlSh">셔터 SHUTTER</label><output id="outSh" for="ctlSh">1/48</output></div><input id="ctlSh" type="range" min="0" max="7" step="1" value="2"></div>
-          <div class="seg">
-            <button class="btn btn--sm" id="btnFalse" type="button" aria-pressed="false">폴스컬러 FALSE COLOR</button>
-            <button class="btn btn--sm" id="btnReset" type="button">기준값으로 RESET</button>
-          </div>
-          <div class="readout" id="expReadout" aria-live="polite"></div>
-          <div class="legend" id="falseLegend" aria-hidden="true"></div>
-          <p class="lead" id="expNote" style="font-size:15px"></p>
         </div>
       </div>
     </div>
 
     <!-- 화이트밸런스 -->
-    <div class="pad sub" id="wb" data-scene="SCENE 02 / PROD · WB">
-      <div class="sub__head" id="wbHead"></div>
-      <div class="demo">
-        <div class="screen">
-          <span class="screen__tag" id="wbTag">5600K</span>
-          <canvas id="wbCanvas" width="320" height="180" role="img" aria-label="켈빈 슬라이더에 따라 색온도가 바뀌는 샘플 장면. 흰 카드와 색 블록들."></canvas>
-        </div>
-        <div class="controls">
-          <div class="ctl"><div class="ctl__row"><label for="kelvin">카메라 WB 설정 (K)</label><output id="outK" for="kelvin">5600K</output></div><input id="kelvin" type="range" min="2800" max="7000" step="100" value="5600"></div>
-          <div class="ctl"><div class="ctl__row"><label for="lightSel">현장 조명</label></div>
-            <div class="seg" id="lightSeg" role="group" aria-label="현장 조명 선택"></div>
+    <div class="sub" id="wb" data-scene="프로덕션, 화이트밸런스">
+      <div class="container">
+        <div class="head" id="wbHead"></div>
+        <div class="demo">
+          <figure class="screen" style="margin:0">
+            <span class="screen__tag" id="wbTag">5600K</span>
+            <canvas id="wbCanvas" width="320" height="180" role="img" aria-label="켈빈 슬라이더에 따라 색온도가 바뀌는 색 차트. 흰 카드, 회색 카드, 색 블록, 피부색 패치."></canvas>
+          </figure>
+          <div class="controls">
+            <div class="ctl"><div class="ctl__row"><label for="kelvin">카메라 화이트밸런스 설정</label><output id="outK" for="kelvin">5600K</output></div><input id="kelvin" type="range" min="2800" max="7000" step="100" value="5600"></div>
+            <div class="ctl"><div class="ctl__row"><span id="lightLabel">현장 조명</span></div>
+              <div class="seg" id="lightSeg" role="group" aria-labelledby="lightLabel"></div>
+            </div>
+            <dl class="readout" id="wbReadout" aria-live="polite"></dl>
+            <p class="note" id="wbNote"></p>
           </div>
-          <div class="readout" id="wbReadout" aria-live="polite"></div>
-          <p class="lead" id="wbNote" style="font-size:15px"></p>
         </div>
       </div>
     </div>
 
     <!-- 연출 체크리스트 -->
-    <div class="pad sub" id="directing" data-scene="SCENE 02 / PROD · DIRECTING" style="padding-bottom: var(--s6)">
-      <div class="directing">
-        <div class="directing__side">
-          <div class="sub__head" id="dirHead" style="margin:0"></div>
-          <div class="counter" aria-hidden="true"><span id="dirCount">0</span><small id="dirTotal">/ 7</small></div>
-          <div data-ph="set" data-reveal></div>
+    <div class="well grained sub" id="directing" data-scene="프로덕션, 연출 체크">
+      <div class="container">
+        <div class="directing">
+          <div class="directing__side">
+            <div class="head" id="dirHead" style="display:grid;grid-template-columns:1fr;margin:0"></div>
+            <div class="counter figure" aria-hidden="true"><span id="dirCount">0</span><small id="dirTotal">/ 7</small></div>
+            <figure class="plate plate--tall" style="margin:0">
+              <div data-slot="set">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/2016_Operator_kamery_w_czasie_pracy.JPG/1280px-2016_Operator_kamery_w_czasie_pracy.JPG"
+                     sizes="(min-width: 64rem) 30vw, 100vw" width="3355" height="2704" loading="lazy" decoding="async" style="object-position: 50% 40%"
+                     alt="비니를 쓴 카메라맨이 삼각대 위의 어깨 카메라로 야외에서 촬영하는 모습. 현장 세팅 사진의 대체 사진">
+              </div>
+              <figcaption><span>2</span><span id="capSet"></span></figcaption>
+            </figure>
+          </div>
+          <ol class="checks" id="dirChecks"></ol>
         </div>
-        <ul class="checks" id="dirChecks"></ul>
       </div>
     </div>
   </section>
 
-  <!-- ===== SCENE 03 / POST ===== -->
-  <section class="offset scene perf" id="post" data-scene="SCENE 03 / POST" aria-labelledby="postTitle">
-    <div class="chapter" data-chapter="post">
-      <div class="chapter__stage"><div class="chapter__inner"></div></div>
-    </div>
-    <div class="pad block">
+  <!-- 03 포스트 프로덕션 -->
+  <section class="offset scene" id="post" data-scene="포스트 프로덕션" aria-labelledby="postTitle">
+    <div class="chapter" data-chapter="post"><div class="chapter__stage"><div class="chapter__inner"></div></div></div>
+    <div class="container block">
       <div class="head" id="postHead"></div>
-      <div class="vt" id="postSteps"><div class="vt__line"><i id="vtFill"></i></div></div>
+      <div class="vt" id="postSteps"><div class="vt__line" aria-hidden="true"><i id="vtFill"></i></div></div>
       <div class="know" id="postKnow"></div>
-      <div style="margin-top: var(--s5)" data-ph="edit" data-reveal></div>
+      <figure class="plate" style="margin-top: var(--section-gap-s)" data-reveal>
+        <div data-slot="edit">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Audio_mixer_close_up.jpg/1280px-Audio_mixer_close_up.jpg"
+               sizes="(min-width: 64rem) 80vw, 100vw" width="6000" height="4000" loading="lazy" decoding="async"
+               alt="어두운 방에서 빛나는 믹서의 페이더와 버튼 클로즈업. 편집실과 사운드 작업 사진의 대체 사진">
+        </div>
+        <figcaption><span>3</span><span id="capEdit"></span></figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- ===== 마무리 ===== -->
-  <section class="offset pad block perf" id="outro" data-scene="END" aria-labelledby="outroTitle">
-    <h2 class="sr-only" id="outroTitle">마무리</h2>
-    <div class="outro" id="outroBox"></div>
+  <!-- 마무리 -->
+  <section class="offset block" id="outro" data-scene="마무리" aria-labelledby="outroTitle">
+    <div class="container">
+      <h2 class="visually-hidden" id="outroTitle">마무리</h2>
+      <div class="outro" id="outroBox"></div>
+    </div>
   </section>
 
-  <footer class="offset foot" id="foot"></footer>
+  <footer class="offset foot">
+    <div class="container" style="display:grid;gap:var(--space-lg)">
+      <div class="foot__row"><span class="foot__mark wordmark">영상놀</span><span id="footLinks"></span></div>
+      <p class="note" id="footCredits">
+        사진: <a href="https://commons.wikimedia.org/wiki/File:Farjad_jolani_Cinematographer.jpg">DarkRavenCore</a> (CC BY-SA 4.0),
+        <a href="https://commons.wikimedia.org/wiki/File:Interior_of_Camille_Pissarro_s_studio_at_%C3%89ragny-sur-Epte_-_2026.jpg">AlexDS05</a> (CC0),
+        <a href="https://commons.wikimedia.org/wiki/File:2016_Operator_kamery_w_czasie_pracy.JPG">Jacek Halicki</a> (CC BY-SA 4.0),
+        <a href="https://commons.wikimedia.org/wiki/File:Audio_mixer_close_up.jpg">Lchader</a> (CC BY-SA 4.0), 모두 Wikimedia Commons. 대체 사진이며 동아리 현장 사진으로 교체됩니다.
+      </p>
+    </div>
+  </footer>
 </main>
 
-<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:#e8a33d;color:#000;padding:12px;text-align:center;z-index:300">이 사이트는 JavaScript가 필요합니다.</p></noscript>
+<noscript><p class="note" style="position:fixed;inset:auto 0 0 0;background:var(--color-accent);color:var(--color-accent-ink);padding:var(--space-sm);text-align:center;z-index:var(--z-toast)">일부 인터랙션에는 JavaScript가 필요합니다.</p></noscript>
 
-<!-- 라이브러리 (CDN): GSAP, ScrollTrigger, Lenis -->
+<!-- 사진 슬롯: 사진이 로드되지 않으면 이미지를 치우고, 슬롯 교체 함수를 제공 -->
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+
+<!-- 라이브러리(CDN): GSAP, ScrollTrigger, Lenis -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
