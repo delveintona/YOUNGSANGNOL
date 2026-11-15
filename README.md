@@ -39,7 +39,6 @@ python -m http.server 8000
 ## 새 구조 (원페이지)
 
 - `index.html` / `style.css` / `script.js` — 스크롤형 메인 사이트. 모든 텍스트·이미지는 `script.js` 맨 위 `CONTENT` 객체에서 수정합니다.
-- `guide/` — 이전 멀티페이지 상세 가이드(체크리스트·계산기).
 
 ## Vercel 배포
 
