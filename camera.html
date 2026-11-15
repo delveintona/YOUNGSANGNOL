@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>촬영 노하우 — YOUNGSANGNOL</title>
+<meta name="description" content="노출 삼각형, 180° 셔터 법칙, 화이트밸런스, 피사계 심도와 포커스 잡는 법. 직접 값을 바꿔 보는 노출 · 심도 계산기 포함.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f0e0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23f2a93b'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><i></i>YOUNGSANGNOL</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+    <nav class="nav" id="nav" aria-label="주 메뉴">
+      <a href="pre-production.html"><small>01</small>프리 프로덕션</a>
+      <a href="production.html"><small>02</small>프로덕션</a>
+      <a href="post-production.html"><small>03</small>포스트 프로덕션</a>
+      <span class="sep"></span>
+      <a href="camera.html" aria-current="page">촬영 노하우</a>
+      <a href="directing.html">연출 노하우</a>
+    </nav>
+  </div>
+</header>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html">HOME</a> / CAMERA</p>
+    <p class="eyebrow">Camera craft</p>
+    <h1>촬영 노하우</h1>
+    <p class="lede">노출, 화이트밸런스, 초점. 이 세 가지만 흔들리지 않으면 어떤 카메라로 찍어도 소스가 버틴다는 게 제 기준입니다. 원리를 이해하고, 현장에서 확인하는 순서까지 정리했습니다.</p>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="doc">
+    <aside class="toc" aria-label="목차">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#order">세팅 순서</a></li>
+        <li><a href="#exposure">노출</a></li>
+        <li><a href="#tools">노출 확인 도구</a></li>
+        <li><a href="#wb">화이트밸런스</a></li>
+        <li><a href="#focus">초점 · 심도</a></li>
+        <li><a href="#frame">구도 · 무빙</a></li>
+        <li><a href="#light">조명 기초</a></li>
+        <li><a href="#checklist">촬영 체크리스트</a></li>
+      </ol>
+    </aside>
+
+    <div class="doc-body">
+
+      <section id="order">
+        <p class="eyebrow">Setup order</p>
+        <h2>카메라를 세팅하는 순서</h2>
+        <p class="lede">순서가 뒤섞이면 값을 계속 되돌리게 됩니다. 크게 정하는 것에서 작게 정하는 것으로 내려갑니다.</p>
+        <ol class="steps">
+          <li><h3>프레임레이트 · 해상도 · 코덱</h3><p>프로젝트 전체에서 통일합니다. 촬영 중에는 바꾸지 않습니다.</p></li>
+          <li><h3>셔터 스피드 (180° 룰)</h3><p>프레임레이트의 두 배 분의 1. 이후에는 건드리지 않는 값입니다.</p></li>
+          <li><h3>화이트밸런스</h3><p>오토를 끄고 켈빈(K) 값으로 고정합니다.</p></li>
+          <li><h3>조리개 — 표현을 위해 정한다</h3><p>배경을 흐리게 할지, 선명하게 둘지는 연출 의도로 정합니다.</p></li>
+          <li><h3>ISO · ND — 밝기를 맞춘다</h3><p>셔터를 고정했으니, 남은 밝기는 ISO와 ND 필터로 조절합니다.</p></li>
+          <li><h3>초점 확인</h3><p>마지막으로 확대(Punch-in)해서 눈에 맞았는지 확인합니다.</p></li>
+        </ol>
+      </section>
+
+      <section id="exposure">
+        <p class="eyebrow">Exposure</p>
+        <h2>노출 잡는 법</h2>
+        <p class="lede">노출은 세 가지 값(조리개·셔터·ISO)과 ND 필터가 만드는 <strong>밝기의 합</strong>입니다. 세 값은 각자 다른 “부작용”을 가지고 있어서, 무엇을 고정하고 무엇을 움직일지가 핵심입니다.</p>
+
+        <div class="grid-3">
+          <div class="card"><span class="kicker">Aperture</span><h4>조리개 (f)</h4><p>빛이 들어오는 구멍. 숫자가 작을수록 많이 열려 밝지만 <strong>심도가 얕아집니다</strong>(배경 흐림, 초점 위험).</p></div>
+          <div class="card"><span class="kicker">Shutter</span><h4>셔터 스피드</h4><p>빛을 받는 시간. 느릴수록 밝고 <strong>모션 블러가 커집니다</strong>. 영상에서는 거의 고정합니다.</p></div>
+          <div class="card"><span class="kicker">ISO</span><h4>감도</h4><p>신호를 키우는 정도. 높을수록 밝지만 <strong>노이즈가 늘고 다이내믹 레인지가 줄어듭니다</strong>.</p></div>
+        </div>
+
+        <h3 style="margin-top:44px">180° 셔터 법칙</h3>
+        <p>영상에서 자연스러운 움직임의 기본값은 <strong>셔터 스피드 = 1 ÷ (프레임레이트 × 2)</strong> 입니다.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>프레임레이트</th><th>셔터 스피드</th><th>비고</th></tr></thead>
+            <tbody>
+              <tr><td>24p</td><td>1/48 (카메라에 따라 1/50)</td><td>시네마 기본</td></tr>
+              <tr><td>30p</td><td>1/60</td><td>일반 영상·유튜브</td></tr>
+              <tr><td>60p</td><td>1/120</td><td>스포츠·슬로모션 변환용</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <span class="label">Flicker</span>
+          <p>우리나라 전원 주파수는 60Hz입니다. 형광등·LED·모니터가 화면에 보일 때 줄무늬가 생기면 셔터를 <code>1/60</code> 또는 <code>1/120</code>으로 바꿔 보세요. 24p에서도 1/60을 쓰는 건 흔한 타협입니다.</p>
+        </div>
+
+        <h3 style="margin-top:44px">그러면 밝기는 어디서 조절하나</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h4>1순위 · 조명과 위치</h4>
+            <p>제일 좋은 방법은 빛 자체를 바꾸는 것입니다. 인물을 창가로 옮기거나, 조명을 가깝게 하거나, 반사판을 쓰세요.</p>
+          </div>
+          <div class="card">
+            <h4>2순위 · ND 필터</h4>
+            <p>야외에서 조리개를 열고 싶을 때는 ND 필터로 밝기를 줄입니다. 가변 ND는 편하지만 색 변화와 X자 무늬를 확인하세요.</p>
+          </div>
+          <div class="card">
+            <h4>3순위 · ISO</h4>
+            <p>카메라의 <strong>네이티브(베이스) ISO</strong>에서 가장 깨끗합니다. 로그 촬영이라면 기종별 권장 ISO를 먼저 확인하세요.</p>
+          </div>
+          <div class="card">
+            <h4>마지막 · 조리개</h4>
+            <p>밝기를 맞추려고 조리개를 바꾸면 심도가 바뀌어 화면 느낌이 달라집니다. 표현을 위한 값이라 가능하면 밝기용으로 쓰지 않습니다.</p>
+          </div>
+        </div>
+
+        <!-- 노출 계산기 -->
+        <div class="widget" id="exposure-tool">
+          <header><span>Tool 01 · 노출 계산기</span><em>기준: f/2.8 · 1/48 · ISO 800 · ND 없음</em></header>
+          <div class="body" id="exposure">
+            <div>
+              <label class="field"><span>조리개</span><select id="ex-a"></select></label>
+              <label class="field"><span>셔터 스피드</span><select id="ex-s"></select></label>
+              <label class="field"><span>ISO</span><select id="ex-i"></select></label>
+              <label class="field"><span>ND 필터</span>
+                <select id="ex-nd">
+                  <option value="0" selected>없음</option>
+                  <option value="1">ND2 (1스톱)</option>
+                  <option value="2">ND4 (2스톱)</option>
+                  <option value="3">ND8 (3스톱)</option>
+                  <option value="4">ND16 (4스톱)</option>
+                  <option value="5">ND32 (5스톱)</option>
+                  <option value="6">ND64 (6스톱)</option>
+                </select>
+              </label>
+              <label class="field"><span>프레임레이트</span>
+                <select id="ex-fps">
+                  <option value="24" selected>24p</option>
+                  <option value="30">30p</option>
+                  <option value="60">60p</option>
+                </select>
+              </label>
+            </div>
+            <div class="readout" aria-live="polite">
+              <div class="stat">
+                <small>기준 대비 밝기</small>
+                <strong id="ex-rel">0.0 스톱</strong>
+                <div class="meter"><i id="ex-pin" style="left:50%"></i></div>
+                <div class="meter-scale"><span>-4</span><span>-2</span><span>0</span><span>+2</span><span>+4</span></div>
+                <p id="ex-rel-note"></p>
+              </div>
+              <div class="stat">
+                <small>셔터 앵글</small>
+                <strong id="ex-ang">180°</strong>
+                <p id="ex-ang-note"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="muted" style="font-size:14px">1스톱 = 빛이 2배(또는 1/2배). 조리개는 f/1.4 → 2 → 2.8 → 4 → 5.6 → 8 → 11 → 16 순서로 한 칸이 1스톱입니다. 이 계산기는 상대 비교용이며 실제 노출은 카메라의 도구로 확인하세요.</p>
+
+        <h3 style="margin-top:44px">노출 원칙</h3>
+        <div class="dd">
+          <div class="do"><h4>Do</h4><ul><li>가장 중요한 피사체(얼굴)를 기준으로 맞춘다</li><li>하이라이트(창문·하늘)를 먼저 확인한다</li><li>씬 안에서는 노출을 통일하고, 바꿀 때는 이유를 남긴다</li><li>로그 촬영에서는 약간 밝게(ETTR) 찍어 노이즈를 줄인다</li></ul></div>
+          <div class="dont"><h4>Don’t</h4><ul><li>오토 노출로 찍기 (컷 안에서 밝기가 출렁임)</li><li>LCD 밝기만 믿고 판단하기</li><li>어두우니까 일단 ISO부터 올리기</li><li>하이라이트가 날아간 컷을 “편집에서 살리면 되지”라고 넘기기</li></ul></div>
+        </div>
+      </section>
+
+      <section id="tools">
+        <p class="eyebrow">Exposure tools</p>
+        <h2>노출을 눈이 아닌 도구로 확인하기</h2>
+        <p class="lede">LCD의 밝기와 주변 빛 때문에 눈은 쉽게 속습니다. 도구는 숫자로 알려줍니다.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>도구</th><th>무엇을 보나</th><th>이렇게 쓴다</th></tr></thead>
+            <tbody>
+              <tr><td>히스토그램</td><td>화면 전체 밝기의 분포</td><td>그래프가 왼쪽·오른쪽 벽에 붙으면 섀도/하이라이트 정보가 잘림</td></tr>
+              <tr><td>제브라(Zebra)</td><td>특정 밝기 이상의 영역을 줄무늬로 표시</td><td>100 근처로 설정하면 클리핑 경고, 70 안팎으로 설정하면 얼굴 노출 확인</td></tr>
+              <tr><td>웨이브폼</td><td>화면의 위치별 밝기를 그래프로</td><td>얼굴과 배경의 밝기 차이, 클리핑 여부를 정확히 확인</td></tr>
+              <tr><td>팔스 컬러 (False Color)</td><td>밝기를 색으로 표시</td><td>얼굴 영역이 기준 색(초록~핑크)에 들어오는지, 빨강(클리핑)이 없는지 확인</td></tr>
+              <tr><td>그레이 카드</td><td>18% 중간 회색</td><td>컷 시작 전에 비추어 노출·화이트밸런스를 기준에 맞춘다</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <span class="label">Rule</span>
+          <p>Rec.709(일반 영상)에서는 밝은 피부가 대략 <strong>60~70 IRE</strong>에 놓이도록 노출을 잡는 것이 기준입니다. Log 촬영은 곡선이 달라서 같은 숫자를 쓰지 않으니, 사용하는 카메라의 Log 가이드를 참고하세요.</p>
+        </div>
+      </section>
+
+      <section id="wb">
+        <p class="eyebrow">White balance</p>
+        <h2>화이트밸런스 잡는 법</h2>
+        <p class="lede">화이트밸런스는 “흰색을 흰색으로 보이게 하는 값”이 아니라 <strong>화면 색의 기준점</strong>입니다. 이 기준이 컷마다 달라지면 컬러 작업이 끝나지 않습니다.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>광원</th><th>대략적인 색온도</th><th>메모</th></tr></thead>
+            <tbody>
+              <tr><td>촛불 · 일출/일몰 직전</td><td>1800~3000K</td><td>아주 따뜻한 주황빛</td></tr>
+              <tr><td>텅스텐(백열등)</td><td>3200K</td><td>실내 따뜻한 조명</td></tr>
+              <tr><td>형광등 · 백색 LED</td><td>3500~5000K</td><td>제품마다 다르고 초록빛(그린) 편향이 있을 수 있음</td></tr>
+              <tr><td>맑은 낮의 햇빛</td><td>5200~5600K</td><td>가장 중립적인 기준</td></tr>
+              <tr><td>흐린 날 · 그늘</td><td>6500~8000K</td><td>푸른 기운</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2" style="margin-top:24px">
+          <div class="card">
+            <h4>이렇게 고정한다</h4>
+            <ul>
+              <li>오토 WB를 끄고 <strong>K 값을 직접</strong> 설정(예: 5600K, 3200K)</li>
+              <li>정확도가 중요하면 그레이 카드로 커스텀 WB를 맞추기</li>
+              <li>컷이 바뀌어도 같은 씬에서는 WB를 바꾸지 않기</li>
+              <li>초록/마젠타 치우침은 <strong>틴트</strong>로 보정</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>혼합광 대처</h4>
+            <ul>
+              <li>실내 조명(주황)과 창문(푸른)이 섞이면 한쪽을 기준으로 정한다</li>
+              <li>필요하면 조명에 <strong>CTB / CTO 젤</strong>을 씌워 색온도를 맞춘다</li>
+              <li>LED 조명은 색온도·틴트를 조명 쪽에서 맞춘 뒤 카메라 값을 고정</li>
+              <li>의도적인 색 대비라면 그대로 두는 것도 연출</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout warn">
+          <span class="label">Tip</span>
+          <p>RAW가 아닌 H.264/H.265 영상에서 WB를 크게 틀리면 후반 보정에서 화질이 무너집니다. <strong>촬영 때 정확하게 맞추는 게 최선입니다.</strong></p>
+        </div>
+      </section>
+
+      <section id="focus">
+        <p class="eyebrow">Focus & depth of field</p>
+        <h2>초점과 피사계 심도</h2>
+        <p class="lede">초점은 “선명하냐”가 아니라 <strong>시청자의 시선을 어디에 둘 것인가</strong>의 문제입니다. 심도가 얕을수록 시선은 강하게 모이지만, 실패할 확률도 같이 높아집니다.</p>
+
+        <h3>심도를 정하는 네 가지</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>요소</th><th>심도가 얕아지는 방향</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td>조리개</td><td>더 열기 (f 숫자 ↓)</td><td>f/1.8 → f/5.6으로 조이면 심도가 확 깊어짐</td></tr>
+              <tr><td>초점거리</td><td>망원 (mm ↑)</td><td>같은 구도로 찍으면 광각보다 망원이 배경이 더 흐려짐</td></tr>
+              <tr><td>피사체 거리</td><td>가깝게</td><td>피사체에 다가갈수록 심도가 급격히 얕아짐</td></tr>
+              <tr><td>센서 크기</td><td>큰 센서</td><td>풀프레임은 같은 구도·조리개에서 APS-C/MFT보다 얕음</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 심도 계산기 -->
+        <div class="widget">
+          <header><span>Tool 02 · 심도 계산기</span><em>참고용 근사값 (허용 착란원 기준)</em></header>
+          <div class="body" id="dof">
+            <div>
+              <label class="field"><span>센서 크기</span>
+                <select id="dof-sensor">
+                  <option value="0.030" selected>풀프레임 (35mm)</option>
+                  <option value="0.020">Super 35 / APS-C</option>
+                  <option value="0.015">마이크로 포서즈</option>
+                </select>
+              </label>
+              <label class="field"><span>초점거리 <b id="dof-f-out">50 mm</b></span><input id="dof-f" type="range" min="14" max="200" step="1" value="50"></label>
+              <label class="field"><span>조리개</span><select id="dof-n"></select></label>
+              <label class="field"><span>피사체까지 거리 <b id="dof-s-out">3.0 m</b></span><input id="dof-s" type="range" min="0.5" max="12" step="0.1" value="3"></label>
+            </div>
+            <div class="readout" aria-live="polite">
+              <div class="stat">
+                <small>초점이 맞는 범위</small>
+                <div class="dof-bar" aria-hidden="true"><span class="zone" id="dof-zone"></span><span class="subject" id="dof-subj"></span><span class="cam">CAM</span></div>
+                <div class="meter-scale" style="margin-top:6px"><span>0 m</span><span>6 m</span><span>12 m</span></div>
+                <p id="dof-note"></p>
+              </div>
+              <div class="grid-2" style="gap:12px">
+                <div class="stat"><small>가까운 한계</small><strong id="dof-near">-</strong></div>
+                <div class="stat"><small>먼 한계</small><strong id="dof-far">-</strong></div>
+                <div class="stat"><small>총 심도</small><strong id="dof-total">-</strong></div>
+                <div class="stat"><small>과초점거리</small><strong id="dof-hyper">-</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:44px">초점을 잡는 방법</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h4>오토포커스(AF)</h4>
+            <ul>
+              <li>인물 촬영에서는 <strong>눈 AF</strong>를 켜 두면 안정적</li>
+              <li>피사체가 단순하게 움직일 때 유용하지만, 시선이 다른 물체로 튀지 않는지 확인</li>
+              <li>AF 속도·감도를 “천천히”로 설정하면 초점 이동이 부드러워 보임</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>매뉴얼 포커스(MF)</h4>
+            <ul>
+              <li>정확하고 의도가 있는 포커스 이동(랙포커스)에 적합</li>
+              <li><strong>포커스 피킹</strong>(윤곽 표시) + <strong>확대 확인</strong>을 같이 사용</li>
+              <li>인물이 움직이면 바닥에 <strong>테이프 마크</strong>를 붙이고 거리 기억</li>
+              <li>포커스 링 거리 눈금은 렌즈마다 편차가 있어 눈금만 믿지 않기</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dd">
+          <div class="do"><h4>Do</h4><ul><li>눈에 맞추고, 확대해서 한 번 더 확인</li><li>인터뷰·대화처럼 안정이 필요하면 조리개 f/2.8~f/4 정도로 여유를 둔다</li><li>움직임이 큰 컷은 한 단계 더 조여서 실패 확률을 줄인다</li><li>카메라 + 렌즈 어댑터 조합은 미리 <strong>후핀(백포커스) 테스트</strong></li></ul></div>
+          <div class="dont"><h4>Don’t</h4><ul><li>LCD 화면 크기로만 초점을 판단</li><li>f/1.4 같은 개방 조리개에서 두 사람을 한 번에 찍기</li><li>컷이 끝날 때까지 AF 추적이 안정적일 거라 믿기</li><li>“살짝 아웃포커스”를 감성이라고 넘기기</li></ul></div>
+        </div>
+      </section>
+
+      <section id="frame">
+        <p class="eyebrow">Framing & movement</p>
+        <h2>구도 · 렌즈 · 카메라 무빙</h2>
+        <div class="grid-3">
+          <div class="card"><span class="kicker">Lens</span><h4>렌즈 선택</h4><ul><li>광각(14~28mm): 공간감, 왜곡 주의</li><li>표준(35~50mm): 눈과 비슷한 시선</li><li>망원(85mm~): 압축, 배경 분리</li></ul></div>
+          <div class="card"><span class="kicker">Composition</span><h4>구도</h4><ul><li>삼분할 · 헤드룸 · 룩룸 · 리드룸</li><li>수평/수직선 정리, 프레임 안 불필요한 물체 확인</li><li>배경의 선이 머리를 가로지르지 않게</li></ul></div>
+          <div class="card"><span class="kicker">Movement</span><h4>무빙</h4><ul><li>핸드헬드: 긴장·현장감</li><li>짐벌: 부드러운 따라가기</li><li>슬라이더·달리: 의도적인 시선 이동</li><li>고정: 안정, 관찰</li></ul></div>
+        </div>
+        <div class="callout">
+          <span class="label">Rule</span>
+          <p>카메라 무빙에는 <strong>이유</strong>가 있어야 합니다. 푸시인은 몰입, 풀백은 고립·해방, 패닝은 시선의 이동. 이유 없이 움직이는 카메라는 시청자를 피곤하게 만듭니다.</p>
+        </div>
+      </section>
+
+      <section id="light">
+        <p class="eyebrow">Lighting basics</p>
+        <h2>조명 기초</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h4>3점 조명</h4>
+            <ul>
+              <li><strong>키 라이트</strong>: 주 광원. 얼굴 모양을 만든다</li>
+              <li><strong>필 라이트</strong>: 그림자를 부드럽게. 대비를 조절</li>
+              <li><strong>백 라이트</strong>: 머리·어깨를 분리해 입체감</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>빛의 질</h4>
+            <ul>
+              <li><strong>하드</strong>: 작은 광원 · 직접 광 → 선명한 그림자, 강한 인상</li>
+              <li><strong>소프트</strong>: 큰 광원 · 디퓨전 → 부드러운 피부, 안정감</li>
+              <li>광원은 피사체에 <strong>가까울수록 부드럽다</strong></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>자연광 활용</h4>
+            <ul>
+              <li>창문을 키 라이트로, 반사판/화이트 폼보드로 필 만들기</li>
+              <li>직사광은 디퓨전(천)으로 부드럽게</li>
+              <li>골든 아워(일출/일몰 직후 한 시간)는 짧아서 계획이 필수</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>대비 만들기</h4>
+            <ul>
+              <li>네거티브 필(검은 천)로 반대편 그림자를 깊게</li>
+              <li>배경에 작은 포인트 조명(프랙티컬)을 넣으면 깊이감</li>
+              <li>얼굴과 배경의 밝기 차이로 시선을 유도</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <p class="eyebrow">Checklist</p>
+        <h2>촬영 체크리스트</h2>
+        <p class="muted">체크한 내용은 이 브라우저에 저장됩니다.</p>
+        <div class="checks" data-id="cam-set">
+          <header><h4>세팅 <button class="reset" type="button">초기화</button></h4><span class="count">0 / 0</span></header>
+          <label class="check"><input type="checkbox"><span><b>프레임레이트 · 해상도 · 코덱</b>이 프로젝트 설정과 같다</span></label>
+          <label class="check"><input type="checkbox"><span><b>셔터</b>가 180° 기준(또는 플리커 대응 값)으로 되어 있다</span></label>
+          <label class="check"><input type="checkbox"><span><b>화이트밸런스</b>가 K 값으로 고정되어 있다</span></label>
+          <label class="check"><input type="checkbox"><span><b>ISO</b>가 네이티브/권장 값 근처다</span></label>
+          <label class="check"><input type="checkbox"><span><b>ND</b>로 조리개와 셔터를 지켰다</span></label>
+          <label class="check"><input type="checkbox"><span>배터리 · 메모리 · 렌즈 클리닝 · 렌즈 후드 확인</span></label>
+        </div>
+        <div class="checks" data-id="cam-take">
+          <header><h4>컷마다 <button class="reset" type="button">초기화</button></h4><span class="count">0 / 0</span></header>
+          <label class="check"><input type="checkbox"><span>제브라/히스토그램/웨이브폼으로 <b>노출</b> 확인 (얼굴, 하이라이트)</span></label>
+          <label class="check"><input type="checkbox"><span><b>눈에 초점</b> 확인 (확대), 움직임 구간의 포커스 마크 확인</span></label>
+          <label class="check"><input type="checkbox"><span>수평 · 헤드룸 · 룩룸 · 프레임 안 물체 확인</span></label>
+          <label class="check"><input type="checkbox"><span>카메라 무빙이 리허설과 같은 속도로 반복되는지 확인</span></label>
+          <label class="check"><input type="checkbox"><span>컷 시작·끝 여유(3~5초) 확보</span></label>
+          <label class="check"><input type="checkbox"><span>찍은 클립 한 번 재생해서 <b>소리·초점·노출</b> 최종 확인</span></label>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <nav class="pager" aria-label="이전 다음">
+    <a class="prev" href="post-production.html"><small>← 이전</small><strong>03 포스트 프로덕션</strong></a>
+    <a class="next" href="directing.html"><small>다음 →</small><strong>연출 노하우</strong></a>
+  </nav>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© YOUNGSANGNOL · 촬영 노하우 &amp; 프로세스</span>
+    <span><a href="https://github.com/delveintona/YOUNGSANGNOL">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

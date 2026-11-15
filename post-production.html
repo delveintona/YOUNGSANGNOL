@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 포스트 프로덕션 — YOUNGSANGNOL</title>
+<meta name="description" content="찍은 것을 영화로 만드는 단계. 데이터 정리, 편집, 사운드, 컬러, 납품의 진행 순서와 팀별 할 일, 그리고 촬영 때 무엇을 고려하면 좋은지.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f0e0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%238ba4d4'/%3E%3C/svg%3E">
+</head>
+<body data-phase="post">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><i></i>YOUNGSANGNOL</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+    <nav class="nav" id="nav" aria-label="주 메뉴">
+      <a href="pre-production.html"><small>01</small>프리 프로덕션</a>
+      <a href="production.html"><small>02</small>프로덕션</a>
+      <a href="post-production.html" aria-current="page"><small>03</small>포스트 프로덕션</a>
+      <span class="sep"></span>
+      <a href="camera.html">촬영 노하우</a>
+      <a href="directing.html">연출 노하우</a>
+    </nav>
+  </div>
+</header>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="bignum" aria-hidden="true">03</div>
+    <p class="crumbs"><a href="index.html">HOME</a> / POST-PRODUCTION</p>
+    <p class="eyebrow">Phase 03</p>
+    <h1>포스트 프로덕션</h1>
+    <p class="lede">찍어온 소스를 하나의 영상으로 완성하는 단계입니다. 편집의 목표는 컷을 이어 붙이는 것이 아니라 <strong>이야기의 리듬</strong>을 만드는 것입니다.</p>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="doc">
+    <aside class="toc" aria-label="목차">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#flow">진행 순서</a></li>
+        <li><a href="#roles">팀별 할 일</a></li>
+        <li><a href="#from-set">촬영 때 고려할 것</a></li>
+        <li><a href="#project">프로젝트 · 파일 정리</a></li>
+        <li><a href="#deliver">납품 · 업로드</a></li>
+        <li><a href="#checklist">최종 점검</a></li>
+      </ol>
+    </aside>
+
+    <div class="doc-body">
+
+      <section id="flow">
+        <p class="eyebrow">Flow</p>
+        <h2>진행 순서</h2>
+        <p class="lede">정해진 순서를 지키면 되돌아가는 일이 줄어듭니다. 특히 <strong>픽처 락(편집 확정)</strong> 이전에는 사운드와 컬러를 마무리하지 않는 것이 핵심입니다.</p>
+        <ol class="steps">
+          <li>
+            <h3>데이터 정리 · 백업 확인</h3>
+            <p>촬영 폴더를 프로젝트 폴더로 옮기고 파일 개수·용량이 맞는지 확인합니다. 편집 PC가 약하면 프록시(저해상도 편집용 파일)를 만들어 편집하고 최종 출력은 원본으로 연결합니다.</p>
+          </li>
+          <li>
+            <h3>싱크 · 클립 정리</h3>
+            <p>영상과 별도 녹음 소리를 맞추고(슬레이트/파형 기준), 씬·컷·테이크 단위로 이름 또는 라벨을 붙입니다.</p>
+          </li>
+          <li>
+            <h3>셀렉 (Selects)</h3>
+            <p>각 컷에서 쓸 만한 테이크를 고릅니다. 이 단계에서는 버리지 말고 <em>좋은 것에 표시</em>만 합니다.</p>
+          </li>
+          <li>
+            <h3>어셈블리 · 러프 컷</h3>
+            <p>대본/콘티 순서대로 이어 붙여 전체 길이와 흐름을 확인합니다. 지금은 완성도가 아니라 <strong>구조</strong>를 봅니다.</p>
+          </li>
+          <li>
+            <h3>파인 컷 · 픽처 락</h3>
+            <p>템포, 컷 길이, 시선 이음새, 리액션 타이밍을 다듬고 음악과 호흡을 맞춥니다. 더 이상 길이가 바뀌지 않는 시점이 픽처 락입니다.</p>
+          </li>
+          <li>
+            <h3>사운드</h3>
+            <p>대사 정리(노이즈 제거, 컷 사이 룸톤 채우기) → 효과음 → 음악 → 믹스(볼륨 균형) 순서로 진행합니다.</p>
+          </li>
+          <li>
+            <h3>컬러</h3>
+            <p>1차 보정(노출·화이트밸런스 통일) → 룩(분위기) → 스킨톤 점검 → 마지막으로 컷 사이 매칭을 확인합니다.</p>
+          </li>
+          <li>
+            <h3>그래픽 · 자막 · 마스터링</h3>
+            <p>타이틀, 자막, 로고, 크레딧을 넣고 플랫폼 규격에 맞춰 출력합니다. 출력 후에는 처음부터 끝까지 한 번 감상하며 오류를 찾습니다.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="roles">
+        <p class="eyebrow">Roles</p>
+        <h2>팀별 할 일</h2>
+        <div class="tabs">
+          <div class="tab-list" role="tablist" aria-label="역할 선택">
+            <button role="tab" id="t-production" aria-controls="role-production" aria-selected="true">제작팀</button>
+            <button role="tab" id="t-directing" aria-controls="role-directing" aria-selected="false">연출팀</button>
+            <button role="tab" id="t-camera" aria-controls="role-camera" aria-selected="false">촬영팀</button>
+          </div>
+
+          <div class="tab-panel" id="role-production" role="tabpanel" aria-labelledby="t-production">
+            <p class="panel-title">Production team</p>
+            <div class="grid-2">
+              <div class="card"><h4>일정 · 피드백 관리</h4><ul><li>피드백 라운드 횟수와 마감일 정하기(무한 수정 방지)</li><li>의견 취합은 한 사람이 정리해서 편집자에게 전달</li></ul></div>
+              <div class="card"><h4>권리 · 라이선스</h4><ul><li>음악·폰트·소스 영상 사용권 확인, 라이선스 문서 보관</li><li>출연자·장소 사용 동의 기록 확인</li></ul></div>
+              <div class="card"><h4>크레딧 · 자막</h4><ul><li>이름·직함 오탈자 확인, 협찬 표기, 필수 문구</li></ul></div>
+              <div class="card"><h4>납품 · 정산</h4><ul><li>납품 규격 확인(파일 형식, 길이, 자막), 최종 파일 보관</li><li>남은 비용 정산, 프로젝트 보관(아카이브)</li></ul></div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="role-directing" role="tabpanel" aria-labelledby="t-directing" hidden>
+            <p class="panel-title">Directing team</p>
+            <div class="grid-2">
+              <div class="card"><h4>편집 디렉팅</h4><ul><li>컷 선택 기준 공유: 연기·감정·연결·템포 중 무엇이 우선인지</li><li>러프 컷에서는 구조, 파인 컷에서는 호흡</li></ul></div>
+              <div class="card"><h4>템포 · 리듬</h4><ul><li>정보가 많은 곳은 천천히, 반복되는 곳은 빠르게</li><li>음악과 컷 포인트(박자/가사)를 함께 설계</li></ul></div>
+              <div class="card"><h4>피드백 방식</h4><ul><li>“어색해” 대신 <strong>타임코드 + 이유 + 원하는 방향</strong></li><li>큰 구조 → 작은 컷 순서로 피드백</li></ul></div>
+              <div class="card"><h4>마지막 확인</h4><ul><li>처음부터 끝까지 시청, 첫 30초와 마지막 30초 집중 점검</li></ul></div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="role-camera" role="tabpanel" aria-labelledby="t-camera" hidden>
+            <p class="panel-title">Camera team</p>
+            <div class="grid-2">
+              <div class="card"><h4>데이터 · 프록시</h4><ul><li>원본 미디어를 정리해 편집자에게 전달</li><li>프록시와 원본 파일명이 일치하는지 확인</li></ul></div>
+              <div class="card"><h4>컬러 파이프라인</h4><ul><li>Log → Rec.709 변환 LUT 적용, 컬러 관리 방식 통일</li><li>씬별 노출 편차를 먼저 맞춘 뒤 룩 입히기</li></ul></div>
+              <div class="card"><h4>스킨톤 · 컷 매칭</h4><ul><li>피부색, 하늘색, 흰색의 균형 점검</li><li>컷 사이 색온도·밝기가 튀는 곳 찾기</li></ul></div>
+              <div class="card"><h4>보정 · 합성 소스</h4><ul><li>안정화(흔들림 보정), 크롭, 리프레이밍, 지우기 작업</li><li>클린 플레이트와 참고 사진 활용</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="from-set">
+        <p class="eyebrow">Shoot it right</p>
+        <h2>프로덕션 때 뭘 고려하면서 찍으면 좋은가</h2>
+        <p class="lede">포스트 프로덕션에서 가장 고생하는 순간들과, 그걸 촬영 때 막는 방법입니다. 자세한 현장 습관은 <a href="production.html#for-post">프로덕션 페이지</a>에서도 볼 수 있습니다.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>포스트에서의 고통</th><th>촬영 때 해결책</th></tr></thead>
+            <tbody>
+              <tr><td>컷마다 색이 달라 보정이 끝나지 않는다</td><td>화이트밸런스를 켈빈 고정 + 씬 안 노출 통일, 그레이 카드 한 컷 촬영</td></tr>
+              <tr><td>하이라이트가 날아가 복구가 안 된다</td><td>제브라/웨이브폼 확인, 중요한 밝은 영역은 노출 아래로</td></tr>
+              <tr><td>초점이 나간 컷뿐이다</td><td>중요한 컷은 포커스 확대 확인 후 촬영, 여러 테이크 + 와이드 대체 컷</td></tr>
+              <tr><td>대사가 지저분하고 소리 톤이 컷마다 다르다</td><td>마이크를 최대한 가깝게, 씬마다 룸톤 30초, 가이드 오디오 보존</td></tr>
+              <tr><td>컷이 이어지지 않는다(시선·손 위치·소품)</td><td>연속성 사진 + 컷어웨이·인서트 여유 촬영</td></tr>
+              <tr><td>컷이 너무 짧아서 트랜지션을 넣을 수 없다</td><td>시작·끝에 3~5초 여유, 카메라 무빙은 시작·끝에 정지 구간 확보</td></tr>
+              <tr><td>세로/가로 버전을 모두 만들어야 한다</td><td>4K로 촬영해 여유 확보, 중요한 요소는 중앙 안전영역에 배치</td></tr>
+              <tr><td>자막·그래픽을 넣을 공간이 없다</td><td>자막이 올라갈 영역(하단 1/3)을 비워 두는 구도 계획</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="project">
+        <p class="eyebrow">Project hygiene</p>
+        <h2>프로젝트 · 파일 정리</h2>
+        <p class="lede">편집 프로그램 안이 엉망이면 수정할 때마다 시간이 두 배로 듭니다. 처음 만들 때부터 규칙을 정해 두세요.</p>
+        <pre><span class="h">PROJECT_이름/</span>
+├── 01_FOOTAGE/    <span class="c"># 촬영 원본(수정 금지)</span>
+├── 02_AUDIO/      <span class="c"># 녹음·음악·효과음</span>
+├── 03_GRAPHICS/   <span class="c"># 타이틀·로고·자막 소스</span>
+├── 04_PROJECT/    <span class="c"># 프리미어 · 다빈치 프로젝트 파일</span>
+├── 05_EXPORT/     <span class="c"># 출력본: v01, v02 … 번호 붙이기</span>
+└── 06_REF/        <span class="c"># 레퍼런스 · 피드백 메모</span>
+
+<span class="c"># 시퀀스/출력 이름 예시</span>
+프로젝트명_v03_러프컷
+프로젝트명_v07_픽처락
+프로젝트명_FINAL_유튜브_4K</pre>
+        <div class="callout">
+          <span class="label">Tip</span>
+          <p>원본 파일은 이름을 바꾸거나 이동하지 않습니다(편집 프로그램이 링크를 잃어버립니다). 정리는 <strong>프로젝트 안의 빈(Bin)</strong>에서 하세요.</p>
+        </div>
+      </section>
+
+      <section id="deliver">
+        <p class="eyebrow">Deliver</p>
+        <h2>납품 · 업로드</h2>
+        <p class="lede">플랫폼마다 권장 규격이 다릅니다. 아래는 일반적인 가이드이며, 업로드 전에 해당 플랫폼의 최신 안내를 한 번 더 확인하세요.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>용도</th><th>컨테이너 · 코덱</th><th>해상도 · 프레임</th><th>메모</th></tr></thead>
+            <tbody>
+              <tr><td>유튜브 업로드</td><td>MP4 · H.264(또는 H.265) · AAC</td><td>원본 해상도·프레임 그대로 (4K / 1080p, 24·30·60p)</td><td>4K로 올리면 유튜브에서 더 높은 화질 인코딩을 받는 경향. 비트레이트를 충분히 높게</td></tr>
+              <tr><td>SNS 세로 영상</td><td>MP4 · H.264 · AAC</td><td>1080×1920 (9:16)</td><td>자막이 UI에 가려지지 않게 상·하단 여백 확보</td></tr>
+              <tr><td>마스터 보관</td><td>ProRes 422 HQ / DNxHR</td><td>작업 해상도 그대로</td><td>나중에 재출력할 때 쓰는 고화질 원본. 용량이 크므로 SSD 보관</td></tr>
+              <tr><td>외부 납품</td><td>고객사 규격 확인</td><td>고객사 요청</td><td>자막 포함/미포함 버전, 음악 없는 버전(M&amp;E)이 필요한 경우가 있음</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid-2">
+          <div class="card"><h4>사운드 레벨</h4><p>대사가 있는 영상은 대사가 가장 크게 들려야 하고, 음악은 그 아래에 깔아야 합니다. 플랫폼은 대체로 라우드니스를 평준화하므로(유튜브 기준 약 -14 LUFS 근처) 지나치게 크게 만들 필요는 없습니다.</p></div>
+          <div class="card"><h4>출력 후 확인</h4><p>출력한 파일을 그대로 한 번 처음부터 끝까지 봅니다. 스마트폰과 이어폰, TV 같은 다른 환경에서도 확인하면 놓친 문제를 잡을 수 있습니다.</p></div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <p class="eyebrow">Checklist</p>
+        <h2>납품 전 최종 점검</h2>
+        <p class="muted">체크한 내용은 이 브라우저에 저장됩니다.</p>
+
+        <div class="checks" data-id="post-final">
+          <header><h4>출력 전 <button class="reset" type="button">초기화</button></h4><span class="count">0 / 0</span></header>
+          <label class="check"><input type="checkbox"><span><b>컷</b> 점프·깜빡임·깨진 프레임 없음, 시작·끝 컷 정확</span></label>
+          <label class="check"><input type="checkbox"><span><b>자막·그래픽</b> 오탈자 · 안전영역 · 노출 시간 충분</span></label>
+          <label class="check"><input type="checkbox"><span><b>소리</b> 대사 명료 · 클리핑 없음 · 음악/효과음 균형</span></label>
+          <label class="check"><input type="checkbox"><span><b>컬러</b> 컷 사이 색 튐 없음 · 스킨톤 자연스러움</span></label>
+          <label class="check"><input type="checkbox"><span><b>권리</b> 음악·폰트·소스 라이선스 확인, 크레딧 반영</span></label>
+          <label class="check"><input type="checkbox"><span><b>출력</b> 규격 확인 → 출력 → 처음부터 끝까지 재생 확인</span></label>
+          <label class="check"><input type="checkbox"><span><b>보관</b> 프로젝트 파일 · 마스터 · 원본 백업 보관</span></label>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <nav class="pager" aria-label="이전 다음">
+    <a class="prev" href="production.html"><small>← 이전</small><strong>02 프로덕션</strong></a>
+    <a class="next" href="camera.html"><small>다음 →</small><strong>촬영 노하우</strong></a>
+  </nav>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© YOUNGSANGNOL · 촬영 노하우 &amp; 프로세스</span>
+    <span><a href="https://github.com/delveintona/YOUNGSANGNOL">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
