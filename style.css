@@ -103,7 +103,7 @@ h3 { font-weight: 400; }
 .toc__foot a { display: inline; padding: 0; color: var(--color-ink-2); }
 @media (max-width: 63.9375rem) {
   .toc { inset: 2px 0 auto 0; width: auto; height: 48px; flex-direction: row; align-items: center; padding: 0 var(--space-md); border-right: 0; border-bottom: var(--rule-hair) solid var(--color-rule); overflow-x: auto; overflow-y: hidden; }
-  .toc__brand, .toc__foot { display: none; }
+  .toc .toc__brand, .toc .toc__foot { display: none; }
   .toc ol { display: flex; gap: var(--space-lg); white-space: nowrap; }
   .toc a, .toc li.toc-sub a { grid-template-columns: auto auto; gap: var(--space-xs); padding: var(--space-sm) 0; margin: 0; border: 0; font-size: var(--text-sm); }
   .toc a span { font: 400 var(--text-sm)/1 var(--font-body); }
