@@ -522,8 +522,11 @@
       `<a class="btn ${a.primary ? 'btn--primary' : ''}" href="${esc(a.href)}">${esc(a.label)}</a>`).join('');
 
     // 목차
-    $('#tocList').innerHTML = C.toc.map((t) =>
-      `<li class="${t.sub ? 'toc-sub' : ''}"><a href="#${t.id}" data-target="${t.id}">${t.no ? `<span>${esc(t.no)}</span>` : ''}${esc(t.label)}</a></li>`).join('');
+    let grp = '';
+    $('#tocList').innerHTML = C.toc.map((t) => {
+      if (!t.sub) grp = t.id;
+      return `<li class="${t.sub ? 'toc-sub' : ''}" data-group="${grp}"><a href="#${t.id}" data-target="${t.id}">${t.no ? `<span>${esc(t.no)}</span>` : ''}${esc(t.label)}</a></li>`;
+    }).join('');
     $('#tocFoot').innerHTML = C.site.tocFoot;
 
     // 소개
@@ -603,6 +606,8 @@
   function initHud() {
     const bar = $('#progress'), tcEl = $('#hudTc'), sceneEl = $('#hudScene'), toc = $('#toc');
     const links = $$('#tocList a');
+    const items = $$('#tocList li');
+    const mark = $('.bg-mark');
     const targets = $$('[data-scene]');       // 문서 순서대로
     const pad2 = (n) => String(n).padStart(2, '0');
     let ticking = false, lastScene = '', lastY = scrollY;
@@ -613,6 +618,12 @@
       const max = Math.max(1, doc.scrollHeight - innerHeight);
       const p = clamp(scrollY / max, 0, 1);
       bar.style.transform = `scaleX(${p})`;
+      // 배경의 큰 로고: 첫 화면을 지나면 은은하게 나타나 스크롤에 맞춰 천천히 올라가며 돈다
+      if (mark) {
+        const k = clamp((scrollY - innerHeight * 0.6) / (innerHeight * 0.6), 0, 1);
+        mark.style.opacity = (0.07 * k).toFixed(3);
+        mark.style.transform = `translate3d(0, ${(-p * 40).toFixed(2)}vh, 0) rotate(${(p * 18).toFixed(2)}deg)`;
+      }
 
       // 타임코드: 스크롤 진행률 x 가상 러닝타임(24fps)
       const frames = Math.floor(p * CONTENT.site.totalMinutes * 60 * 24);
@@ -624,6 +635,16 @@
       const sc = cur.dataset.scene;
       if (sc !== lastScene) { sceneEl.textContent = sc; lastScene = sc; }
       links.forEach((a) => a.setAttribute('aria-current', String(a.dataset.target === cur.id)));
+      // 장마다 배경색 톤을 살짝 바꿈 (프리는 차가운 청록, 프로는 따뜻한 기본, 포스트는 푸른 밤)
+      const tone = cur.id === 'pre' || cur.closest('#pre') ? 'pre' : (cur.id === 'post' || cur.closest('#post') ? 'post' : '');
+      if (document.body.dataset.tone !== tone) document.body.dataset.tone = tone;
+      // 현재 장(프리, 프로, 포스트)만 하위 항목을 펼친다
+      const here = links.find((a) => a.dataset.target === cur.id);
+      const group = here ? here.parentElement.dataset.group : '';
+      items.forEach((li) => {
+        li.classList.toggle('is-group', !li.classList.contains('toc-sub') && li.dataset.group === group);
+        li.classList.toggle('is-open', li.classList.contains('toc-sub') && li.dataset.group === group);
+      });
       const active = links.find((a) => a.dataset.target === cur.id);
       if (active && innerWidth < 1024) active.scrollIntoView({ inline: 'center', block: 'nearest' });
 
@@ -686,13 +707,15 @@
     gsap.fromTo('#heroLogo', { scale: 1 }, { scale: 1.12, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('.hero__inner', { y: -60, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#hero', start: '30% top', end: 'bottom top', scrub: true } });
 
-    // 챕터 전환: 가운데에 크게 등장, 잠시 머물고, 위로 올라가며 사라짐
+    // 챕터 전환: 가운데에 크게 등장, 충분히 머문 뒤, 천천히 위로 올라가며 사라짐
+    // (고정되는 구간 안에서 시간을 나눠 써서, 폰에서도 금방 사라지지 않게 함)
     $$('.chapter').forEach((ch) => {
       const inner = $('.chapter__inner', ch);
-      const tl = gsap.timeline({ scrollTrigger: { trigger: ch, start: 'top 65%', end: 'bottom bottom', scrub: true } });
-      tl.fromTo(inner, { opacity: 0, y: 60 }, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.28 })
-        .to(inner, { opacity: 1, duration: 0.3 })
-        .to(inner, { opacity: 0, y: -180, ease: 'power2.in', duration: 0.42 });
+      const hold = compact ? 45 : 60;                       // 고정된 뒤 머무는 길이(화면 높이의 %)
+      gsap.fromTo(inner, { opacity: 0, y: 60 }, { opacity: 1, y: 0, ease: 'power2.out',
+        scrollTrigger: { trigger: ch, start: 'top 85%', end: 'top top', scrub: true } });
+      gsap.fromTo(inner, { opacity: 1, y: 0 }, { opacity: 0, y: -160, ease: 'power1.in', immediateRender: false,
+        scrollTrigger: { trigger: ch, start: 'top -' + hold + '%', end: 'bottom bottom', scrub: true } });
     });
 
     // 등장 효과: 뷰포트에 들어오면 24px 올라오며 페이드인, 0.1초 간격
@@ -711,7 +734,7 @@
     if (compact) sec.classList.add('hscroll--native');
     const dist = () => Math.max(0, track.scrollWidth - sec.clientWidth);
     const tween = compact ? null : gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: {
-      trigger: sec, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true
+      trigger: sec, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1
     }});
     hTrigger = tween ? tween.scrollTrigger : null;
 
@@ -733,6 +756,12 @@
     const refresh = () => ScrollTrigger.refresh();
     addEventListener('load', refresh);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+    // 한글 글꼴 조각이 나중에 내려오면 문서 높이가 변해 효과 위치가 어긋나므로, 높이가 바뀔 때마다 다시 계산
+    let lastH = document.documentElement.scrollHeight, timer;
+    new ResizeObserver(() => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { const h = document.documentElement.scrollHeight; if (Math.abs(h - lastH) > 4) { lastH = h; ScrollTrigger.refresh(); } }, 200);
+    }).observe(document.body);
   }
 
   /* ======================================================================
