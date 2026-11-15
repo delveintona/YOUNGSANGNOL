@@ -4,174 +4,185 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YOUNGSANGNOL — 촬영 노하우 &amp; 프로세스</title>
-<meta name="description" content="프리 프로덕션부터 포스트 프로덕션까지. 촬영·연출·제작팀이 각자 무엇을 해야 하는지, 노출과 초점은 어떻게 잡는지 현장 그대로 정리한 촬영 노하우 아카이브.">
+<meta name="description" content="프리 프로덕션, 프로덕션, 포스트 프로덕션. 촬영감독 겸 연출자의 촬영 노하우와 현장 프로세스를 스크롤로 읽는 교육형 사이트.">
+<meta name="theme-color" content="#0b0b0c">
 <meta property="og:title" content="YOUNGSANGNOL — 촬영 노하우 & 프로세스">
-<meta property="og:description" content="찍기 전에, 찍는 동안, 찍고 난 뒤까지. 촬영·연출·제작 노하우 아카이브.">
+<meta property="og:description" content="찍기 전에, 찍는 동안, 찍고 난 뒤까지.">
+
+<!-- JS가 켜져 있을 때만 등장 효과용 숨김 상태를 적용 -->
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- 폰트: Anton(제목) / JetBrains Mono(라벨) / Pretendard(본문) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f0e0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23e5533d'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0c'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23e8a33d'/%3E%3C/svg%3E">
 </head>
 <body>
-<a class="skip" href="#main">본문으로 건너뛰기</a>
+<a class="skip" href="#intro">본문으로 건너뛰기</a>
 
-<header class="topbar">
-  <div class="wrap">
-    <a class="brand" href="index.html"><i></i>YOUNGSANGNOL</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
-    <nav class="nav" id="nav" aria-label="주 메뉴">
-      <a href="pre-production.html"><small>01</small>프리 프로덕션</a>
-      <a href="production.html"><small>02</small>프로덕션</a>
-      <a href="post-production.html"><small>03</small>포스트 프로덕션</a>
-      <span class="sep"></span>
-      <a href="camera.html">촬영 노하우</a>
-      <a href="directing.html">연출 노하우</a>
-    </nav>
-  </div>
-</header>
+<!-- 화면 전체 장식 -->
+<div class="grain" aria-hidden="true"></div>
+<div class="gridlines" aria-hidden="true"></div>
+
+<!-- 상단 진행바 + 현재 위치 타임코드 -->
+<div class="hud" aria-hidden="true">
+  <div class="hud__bar"><i id="progress"></i></div>
+  <div class="hud__tc"><span class="rec"></span><span id="hudScene">SCENE 00 / OPEN</span><b id="hudTc">00:00:00:00</b></div>
+</div>
+
+<!-- 목차: 데스크톱=좌측 고정, 모바일=상단 가로 바 (내용은 script.js의 CONTENT.toc) -->
+<nav class="toc" id="toc" aria-label="목차">
+  <a class="toc__brand" href="#hero">YOUNGSANGNOL</a>
+  <ol id="tocList"></ol>
+  <p class="toc__foot" id="tocFoot"></p>
+</nav>
 
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow">Field Notes · 촬영 노하우 &amp; 프로세스</p>
-        <h1>찍기 전에,<br>찍는 동안,<br><em>찍고 난 뒤</em>까지.</h1>
-        <p class="lede">프리 프로덕션부터 포스트 프로덕션까지 — 촬영·연출·제작팀이 각자 무엇을 해야 하는지, 노출과 초점은 어떻게 잡는지, 컷마다 무엇을 맞춰가며 찍어야 하는지를 현장에서 쓰는 그대로 정리했습니다.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="pre-production.html">01 프리 프로덕션부터 →</a>
-          <a class="btn" href="camera.html">노출 · 초점 바로 보기</a>
-        </div>
-      </div>
-      <div class="tc" aria-hidden="true"><i></i><span>TC</span><b id="tc">00:00:00:00</b><span>24p</span></div>
+
+  <!-- ===== 히어로 ===== -->
+  <header class="hero" id="hero" data-scene="SCENE 00 / OPEN">
+    <div class="hero__bg"><div data-ph="hero"></div></div>
+    <div class="hero__shade" id="heroShade"></div>
+    <div class="hero__vig"></div>
+    <div class="hero__inner">
+      <p class="hero__copy" id="heroCopy"></p>
+      <h1 class="hero__title" id="heroTitle"></h1>
+      <p class="hero__sub" id="heroSub"></p>
+    </div>
+    <div class="hero__scroll" aria-hidden="true"><span>SCROLL</span><i></i></div>
+  </header>
+
+  <!-- ===== 소개 ===== -->
+  <section class="offset pad block perf" id="intro" data-scene="INTRO" aria-labelledby="introTitle">
+    <h2 class="sr-only" id="introTitle">소개</h2>
+    <div class="intro">
+      <div class="intro__lines" id="introLines"></div>
+      <div data-ph="portrait" data-reveal></div>
     </div>
   </section>
 
-  <div class="perf" aria-hidden="true"></div>
+  <!-- ===== SCENE 01 / PRE ===== -->
+  <section class="offset scene perf" id="pre" data-scene="SCENE 01 / PRE" aria-labelledby="preTitle">
+    <div class="chapter" data-chapter="pre">
+      <div class="chapter__stage"><div class="chapter__inner"></div></div>
+    </div>
+    <div class="pad block">
+      <div class="head" id="preHead"></div>
+      <div class="cards" id="preCards"></div>
+      <div style="margin-top: var(--s5)" data-ph="location" data-reveal></div>
+    </div>
+  </section>
 
-  <section id="process">
-    <div class="wrap">
-      <p class="eyebrow">Process</p>
-      <h2>세 단계, 하나의 흐름</h2>
-      <p class="lede">촬영 현장에서 일어나는 모든 선택은 앞 단계에서 준비한 것의 결과이고, 뒤 단계에서 편집하는 사람이 받는 선물(혹은 숙제)입니다. 그래서 세 단계를 따로 보지 않고 한 줄로 이어서 봅니다.</p>
+  <!-- ===== SCENE 02 / PROD ===== -->
+  <section class="offset scene perf" id="prod" data-scene="SCENE 02 / PROD" aria-labelledby="prodTitle">
+    <div class="chapter" data-chapter="prod">
+      <div class="chapter__stage"><div class="chapter__inner"></div></div>
+    </div>
 
-      <div class="phase-grid">
-        <a class="phase-card reveal" href="pre-production.html" style="--c: var(--pre)">
-          <div>
-            <div class="num">01</div>
-            <h3>프리 프로덕션</h3>
-            <p>촬영 날 해야 할 결정을 촬영 날 전에 끝내는 단계. 기획, 콘티, 로케이션, 스케줄, 장비 테스트.</p>
-            <div class="tags"><span class="tag">기획</span><span class="tag">콘티</span><span class="tag">콜시트</span><span class="tag">테스트</span></div>
+    <div class="pad block" style="padding-bottom: var(--s5)">
+      <div class="head" id="prodHead"></div>
+    </div>
+
+    <!-- 현장 하루 타임라인: 스크롤하면 가로로 흘러감 (pin) -->
+    <div class="hscroll" id="timeline" data-scene="SCENE 02 / PROD · DAY" tabindex="-1">
+      <div class="hscroll__wrap">
+        <div class="hscroll__head pad" id="dayHead"></div>
+        <div class="hscroll__track" id="dayTrack" role="list"></div>
+      </div>
+    </div>
+
+    <!-- 노출 -->
+    <div class="pad sub" id="exposure" data-scene="SCENE 02 / PROD · EXPOSURE">
+      <div class="sub__head" id="expHead"></div>
+      <div class="demo">
+        <div class="scopes">
+          <div class="screen">
+            <span class="screen__tag" id="expTag">NORMAL</span>
+            <canvas id="expCanvas" width="320" height="180" role="img" aria-label="노출 슬라이더에 따라 밝기가 바뀌는 샘플 장면. 창가에 앉은 인물."></canvas>
           </div>
-          <div class="go">보러 가기 →</div>
-        </a>
-        <a class="phase-card reveal" href="production.html" style="--c: var(--pro)">
-          <div>
-            <div class="num">02</div>
-            <h3>프로덕션</h3>
-            <p>실제로 찍는 날. 하루의 흐름, 역할별 책임, 현장 콜, 그리고 편집을 위해 지금 챙겨야 할 것들.</p>
-            <div class="tags"><span class="tag">현장 흐름</span><span class="tag">슬레이트</span><span class="tag">백업</span><span class="tag">컨티뉴이티</span></div>
+          <div class="wave">
+            <span class="wave__tag">WAVEFORM</span>
+            <canvas id="waveCanvas" width="320" height="150" role="img" aria-label="현재 샘플 장면의 웨이브폼 그래프"></canvas>
           </div>
-          <div class="go">보러 가기 →</div>
-        </a>
-        <a class="phase-card reveal" href="post-production.html" style="--c: var(--post)">
-          <div>
-            <div class="num">03</div>
-            <h3>포스트 프로덕션</h3>
-            <p>찍은 것을 영화로 만드는 단계. 정리, 편집, 사운드, 컬러, 납품까지 — 그리고 촬영 때 뭘 고려하면 좋은지.</p>
-            <div class="tags"><span class="tag">편집</span><span class="tag">사운드</span><span class="tag">컬러</span><span class="tag">납품</span></div>
+        </div>
+        <div class="controls">
+          <div class="ctl"><div class="ctl__row"><label for="ctlAp">조리개 APERTURE</label><output id="outAp" for="ctlAp">f/2.8</output></div><input id="ctlAp" type="range" min="0" max="7" step="1" value="2"></div>
+          <div class="ctl"><div class="ctl__row"><label for="ctlIso">ISO</label><output id="outIso" for="ctlIso">800</output></div><input id="ctlIso" type="range" min="0" max="6" step="1" value="3"></div>
+          <div class="ctl"><div class="ctl__row"><label for="ctlSh">셔터 SHUTTER</label><output id="outSh" for="ctlSh">1/48</output></div><input id="ctlSh" type="range" min="0" max="7" step="1" value="2"></div>
+          <div class="seg">
+            <button class="btn btn--sm" id="btnFalse" type="button" aria-pressed="false">폴스컬러 FALSE COLOR</button>
+            <button class="btn btn--sm" id="btnReset" type="button">기준값으로 RESET</button>
           </div>
-          <div class="go">보러 가기 →</div>
-        </a>
+          <div class="readout" id="expReadout" aria-live="polite"></div>
+          <div class="legend" id="falseLegend" aria-hidden="true"></div>
+          <p class="lead" id="expNote" style="font-size:15px"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 화이트밸런스 -->
+    <div class="pad sub" id="wb" data-scene="SCENE 02 / PROD · WB">
+      <div class="sub__head" id="wbHead"></div>
+      <div class="demo">
+        <div class="screen">
+          <span class="screen__tag" id="wbTag">5600K</span>
+          <canvas id="wbCanvas" width="320" height="180" role="img" aria-label="켈빈 슬라이더에 따라 색온도가 바뀌는 샘플 장면. 흰 카드와 색 블록들."></canvas>
+        </div>
+        <div class="controls">
+          <div class="ctl"><div class="ctl__row"><label for="kelvin">카메라 WB 설정 (K)</label><output id="outK" for="kelvin">5600K</output></div><input id="kelvin" type="range" min="2800" max="7000" step="100" value="5600"></div>
+          <div class="ctl"><div class="ctl__row"><label for="lightSel">현장 조명</label></div>
+            <div class="seg" id="lightSeg" role="group" aria-label="현장 조명 선택"></div>
+          </div>
+          <div class="readout" id="wbReadout" aria-live="polite"></div>
+          <p class="lead" id="wbNote" style="font-size:15px"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 연출 체크리스트 -->
+    <div class="pad sub" id="directing" data-scene="SCENE 02 / PROD · DIRECTING" style="padding-bottom: var(--s6)">
+      <div class="directing">
+        <div class="directing__side">
+          <div class="sub__head" id="dirHead" style="margin:0"></div>
+          <div class="counter" aria-hidden="true"><span id="dirCount">0</span><small id="dirTotal">/ 7</small></div>
+          <div data-ph="set" data-reveal></div>
+        </div>
+        <ul class="checks" id="dirChecks"></ul>
       </div>
     </div>
   </section>
 
-  <div class="perf" aria-hidden="true"></div>
-
-  <section id="roles">
-    <div class="wrap">
-      <p class="eyebrow">Roles</p>
-      <h2>팀마다 해야 할 일이 다릅니다</h2>
-      <p class="lede">같은 현장에 있어도 제작팀, 연출팀, 촬영팀이 보는 것은 다릅니다. 각 단계 페이지에서는 세 팀의 할 일을 탭으로 나눠 보여줍니다.</p>
-
-      <div class="role-grid">
-        <div class="role reveal">
-          <span class="tag">PRODUCTION</span>
-          <h3>제작팀</h3>
-          <p class="muted">사람·돈·시간·장소를 굴립니다. 감독이 연출에 집중할 수 있게 현장을 지키는 팀.</p>
-          <ul><li>예산 · 스케줄 · 콜시트</li><li>로케이션 · 허가 · 섭외</li><li>식사 · 안전 · 타임키핑</li></ul>
-        </div>
-        <div class="role reveal">
-          <span class="tag">DIRECTING</span>
-          <h3>연출팀</h3>
-          <p class="muted">무엇을 어떻게 보여줄지 정합니다. 컷이 서로 이어지도록 현장의 연속성을 책임지는 팀.</p>
-          <ul><li>콘티 · 샷리스트 · 블로킹</li><li>연기 디렉팅 · OK 판단</li><li>컨티뉴이티 · 이음새 관리</li></ul>
-        </div>
-        <div class="role reveal">
-          <span class="tag">CAMERA</span>
-          <h3>촬영팀</h3>
-          <p class="muted">화면을 만듭니다. 노출·초점·구도·무빙, 그리고 소스의 품질과 데이터를 책임지는 팀.</p>
-          <ul><li>룩 테스트 · 카메라 세팅</li><li>노출 · 화이트밸런스 · 포커스</li><li>미디어 관리 · 백업</li></ul>
-        </div>
-      </div>
+  <!-- ===== SCENE 03 / POST ===== -->
+  <section class="offset scene perf" id="post" data-scene="SCENE 03 / POST" aria-labelledby="postTitle">
+    <div class="chapter" data-chapter="post">
+      <div class="chapter__stage"><div class="chapter__inner"></div></div>
+    </div>
+    <div class="pad block">
+      <div class="head" id="postHead"></div>
+      <div class="vt" id="postSteps"><div class="vt__line"><i id="vtFill"></i></div></div>
+      <div class="know" id="postKnow"></div>
+      <div style="margin-top: var(--s5)" data-ph="edit" data-reveal></div>
     </div>
   </section>
 
-  <div class="perf" aria-hidden="true"></div>
-
-  <section id="principles">
-    <div class="wrap">
-      <p class="eyebrow">Rules of thumb</p>
-      <h2>외워 두면 현장에서 덜 흔들리는 세 문장</h2>
-      <div class="principles">
-        <div class="principle reveal">
-          <div class="q">“노출은 하이라이트를 지킨다.”</div>
-          <p>날아간 밝은 부분은 편집에서 되살릴 수 없지만, 어두운 부분은 어느 정도 끌어올릴 수 있습니다. 가장 밝은 중요한 부분부터 확인하세요.</p>
-        </div>
-        <div class="principle reveal">
-          <div class="q">“초점은 눈에 둔다.”</div>
-          <p>인물이 나오는 컷에서 시청자는 눈을 봅니다. 얕은 심도일수록 눈 하나에만 정확히 맞추고, 확대 확인을 습관으로 만드세요.</p>
-        </div>
-        <div class="principle reveal">
-          <div class="q">“컷은 이어붙일 때를 위해 찍는다.”</div>
-          <p>한 컷이 아무리 좋아도 앞뒤 컷과 이어지지 않으면 쓸 수 없습니다. 시선, 방향, 소품, 에너지를 매 컷 맞춰 두세요.</p>
-        </div>
-      </div>
-    </div>
+  <!-- ===== 마무리 ===== -->
+  <section class="offset pad block perf" id="outro" data-scene="END" aria-labelledby="outroTitle">
+    <h2 class="sr-only" id="outroTitle">마무리</h2>
+    <div class="outro" id="outroBox"></div>
   </section>
 
-  <div class="perf" aria-hidden="true"></div>
-
-  <section id="deep">
-    <div class="wrap">
-      <p class="eyebrow">Deep dive</p>
-      <h2>기술과 연출을 깊게</h2>
-      <div class="grid-2" style="margin-top:32px">
-        <a class="card reveal" href="camera.html" style="text-decoration:none">
-          <span class="kicker">Camera</span>
-          <h3>촬영 노하우</h3>
-          <p>노출 삼각형, 180° 셔터 법칙, 화이트밸런스, 피사계 심도와 포커스 기술. 직접 값을 바꿔 보는 계산기가 들어 있습니다.</p>
-          <p class="mono" style="color:var(--accent);font-size:13px">노출 계산기 · 심도 계산기 →</p>
-        </a>
-        <a class="card reveal" href="directing.html" style="text-decoration:none">
-          <span class="kicker">Directing</span>
-          <h3>연출 노하우</h3>
-          <p>샷 사이즈, 180° 룰, 커버리지, 컷마다 맞춰야 하는 컨티뉴이티와 배우에게 말하는 법. 샷 사이즈 시뮬레이터 포함.</p>
-          <p class="mono" style="color:var(--accent);font-size:13px">샷 사이즈 시뮬레이터 →</p>
-        </a>
-      </div>
-    </div>
-  </section>
+  <footer class="offset foot" id="foot"></footer>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© YOUNGSANGNOL · 촬영 노하우 &amp; 프로세스</span>
-    <span><a href="https://github.com/delveintona/YOUNGSANGNOL">GitHub</a></span>
-  </div>
-</footer>
+<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:#e8a33d;color:#000;padding:12px;text-align:center;z-index:300">이 사이트는 JavaScript가 필요합니다.</p></noscript>
 
-<script src="assets/app.js"></script>
+<!-- 라이브러리 (CDN): GSAP, ScrollTrigger, Lenis -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>

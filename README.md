@@ -23,7 +23,7 @@ assets/app.js           공통 스크립트 (탭, 체크리스트, 계산기)
 python -m http.server 8000
 ```
 
-그다음 브라우저에서 http://localhost:8000 을 엽니다. (`index.html`을 더블클릭해도 열립니다.)
+그다음 브라우저에서 http://localhost:8000 을 엽니다. (`index.html`을 더블클릭해도 열립니다. CDN(GSAP/Lenis) 때문에 인터넷 연결이 필요합니다.)
 
 ## 내용 추가하기
 
@@ -35,3 +35,8 @@ python -m http.server 8000
 ## 배포 (GitHub Pages)
 
 저장소 Settings → Pages → Source를 `Deploy from a branch`, 브랜치 `main` / 폴더 `/ (root)`로 설정하면 `https://delveintona.github.io/YOUNGSANGNOL/` 에서 볼 수 있습니다.
+
+## 새 구조 (원페이지)
+
+- `index.html` / `style.css` / `script.js` — 스크롤형 메인 사이트. 모든 텍스트·이미지는 `script.js` 맨 위 `CONTENT` 객체에서 수정합니다.
+- `guide/` — 이전 멀티페이지 상세 가이드(체크리스트·계산기).
