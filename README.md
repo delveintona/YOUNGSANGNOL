@@ -40,3 +40,13 @@ python -m http.server 8000
 
 - `index.html` / `style.css` / `script.js` — 스크롤형 메인 사이트. 모든 텍스트·이미지는 `script.js` 맨 위 `CONTENT` 객체에서 수정합니다.
 - `guide/` — 이전 멀티페이지 상세 가이드(체크리스트·계산기).
+
+## Vercel 배포
+
+빌드 과정이 없는 정적 사이트라 설정은 `vercel.json`에 들어 있습니다.
+
+1. vercel.com 에서 **Add New → Project** 를 누르고 GitHub의 `delveintona/YOUNGSANGNOL` 저장소를 가져옵니다.
+2. Framework Preset은 **Other**, Build Command와 Output Directory는 비워 둡니다(`vercel.json`이 지정합니다).
+3. **Deploy** 를 누르면 끝입니다. 이후 `main`에 푸시할 때마다 자동으로 다시 배포됩니다.
+
+`.vercelignore`가 작업 기록 폴더(`.hallmark`, `.claude`)를 배포에서 뺍니다.
