@@ -82,7 +82,7 @@ h3 { font-weight: 400; }
   overflow-y: auto; scrollbar-width: none;
 }
 .toc::-webkit-scrollbar { display: none; }
-.js .toc { opacity: 0; pointer-events: none; transition: opacity var(--dur-long) var(--ease-out); }
+.js .toc { opacity: 0; pointer-events: none; transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); }
 .js .toc.is-on { opacity: 1; pointer-events: auto; }
 .toc__brand { position: absolute; top: var(--space-lg); left: var(--space-lg); display: inline-flex; align-items: center; gap: var(--space-xs); font: 400 var(--text-lg)/1 var(--font-display); text-decoration: none; }
 .toc__brand .logo { height: 1.75rem; }
@@ -356,6 +356,7 @@ input[type="range"] { touch-action: pan-y; }
 @media (max-width: 63.9375rem) {
   /* the index bar: clear the notch, and slide away while reading downward */
   .toc { height: calc(48px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); padding-inline: max(var(--space-md), env(safe-area-inset-left)); }
+  .toc { will-change: transform; }
   .toc.is-hidden { transform: translateY(-100%); }
   .hud__bar { margin-top: env(safe-area-inset-top); }
   .hero__top { inset-block-start: max(var(--space-lg), env(safe-area-inset-top)); }

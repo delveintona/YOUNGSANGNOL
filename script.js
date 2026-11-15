@@ -426,7 +426,7 @@
           { type: 'sub', title: '슬레이트 잘 대는 법' },
           { type: 'rows', two: true, items: [
             { t: '화면에 꽉 차게 댑니다', d: '슬레이트에 쓴 씬, 컷, 테이크가 컴퓨터의 미리보기 썸네일에서도 읽힐 만큼 크게 대야 합니다. 작게 대면 파일을 찾을 때 읽을 수 없습니다.' },
-            { t: '거리는 렌즈에 맞춥니다', d: '렌즈 mm 수가 클수록 슬레이트를 멀리 대야 화면에 꽉 찹니다. 풀프레임에서 가로 30cm 슬레이트를 기준으로 35mm는 30cm 안팎, 50mm는 40cm 안팎입니다. 모니터를 보고 맞춥니다.' },
+            { t: '거리는 렌즈에 맞춥니다', d: '렌즈 mm 수가 클수록 슬레이트를 멀리 대야 화면에 꽉 찹니다. 렌즈 mm 수에 30을 곱한 값(mm)이 대략적인 거리입니다. 35mm 렌즈는 약 1m, 50mm 렌즈는 약 1.5m입니다. 마지막에는 모니터를 보고 맞춥니다.' },
             { t: '치는 부분이 화면 안에 있어야 합니다', d: '슬레이트를 칠 때 막대가 닿는 순간과 딱 소리가 화면에 보여야 영상과 소리를 맞출 수 있습니다.' },
             { t: '엔드 슬레이트', d: '시작에 못 넣었다면 컷 끝에 슬레이트를 칩니다. 관례로 슬레이트를 거꾸로 들어 엔드임을 표시합니다.' }
           ]}
@@ -795,62 +795,100 @@
     const mark = $('.bg-mark');
     const targets = $$('[data-scene]');       // 문서 순서대로
     const pad2 = (n) => String(n).padStart(2, '0');
-    let ticking = false, lastScene = '', lastY = scrollY;
+    let ticking = false, lastY = scrollY, acc = 0, hidden = false;
+    let curIdx = -1, tops = [], lastTc = '', lastMark = -1, lastBar = -1;
+    const linkOf = (id) => links.find((a) => a.dataset.target === id);
 
-    const update = () => {
-      ticking = false;
-      const doc = document.documentElement;
-      const max = Math.max(1, doc.scrollHeight - innerHeight);
-      const p = clamp(scrollY / max, 0, 1);
-      bar.style.transform = `scaleX(${p})`;
-      // 배경의 큰 로고: 첫 화면을 지나면 은은하게 나타나 스크롤에 맞춰 천천히 올라가며 돈다
-      if (mark) {
-        const k = clamp((scrollY - innerHeight * 0.6) / (innerHeight * 0.6), 0, 1);
-        mark.style.opacity = (0.07 * k).toFixed(3);
-        mark.style.transform = `translate3d(0, ${(-p * 40).toFixed(2)}vh, 0) rotate(${(p * 18).toFixed(2)}deg)`;
-      }
+    // 각 섹션의 문서 안 위치를 미리 재 둔다. 스크롤할 때마다 레이아웃을 읽으면 버벅이기 때문
+    const measure = () => {
+      tops = targets.map((t) => (t.id === 'timeline' && hTrigger ? hTrigger.start : t.getBoundingClientRect().top + scrollY));
+      curIdx = -1;          // 위치가 바뀌었으니 현재 섹션을 다시 판단
+      onScroll();
+    };
 
-      // 타임코드: 스크롤 진행률 x 가상 러닝타임(24fps)
-      const frames = Math.floor(p * CONTENT.site.totalMinutes * 60 * 24);
-      tcEl.textContent = `${pad2(Math.floor(frames / 86400))}:${pad2(Math.floor(frames / 1440) % 60)}:${pad2(Math.floor(frames / 24) % 60)}:${pad2(frames % 24)}`;
-
-      // 현재 섹션: 화면 45% 지점을 지난 마지막 target
-      let cur = targets[0];
-      targets.forEach((t) => { if (t.getBoundingClientRect().top <= innerHeight * 0.45) cur = t; });
-      const sc = cur.dataset.scene;
-      if (sc !== lastScene) { sceneEl.textContent = sc; lastScene = sc; }
+    // 현재 섹션이 바뀔 때만 DOM을 건드린다
+    const setSection = (idx) => {
+      const cur = targets[idx];
+      sceneEl.textContent = cur.dataset.scene;
       // 목차에 항목이 없는 섹션(예: 화이트밸런스 가이드)은 바로 앞의 목차 항목을 현재 위치로 본다
-      let ri = targets.indexOf(cur);
-      while (ri > 0 && !links.some((a) => a.dataset.target === targets[ri].id)) ri--;
+      let ri = idx;
+      while (ri > 0 && !linkOf(targets[ri].id)) ri--;
       const ref = targets[ri];
       links.forEach((a) => a.setAttribute('aria-current', String(a.dataset.target === ref.id)));
       // 장마다 배경색 톤을 살짝 바꿈 (프리는 차가운 청록, 프로는 따뜻한 기본, 포스트는 푸른 밤)
       const tone = cur.id === 'pre' || cur.closest('#pre') ? 'pre' : (cur.id === 'post' || cur.closest('#post') ? 'post' : '');
       if (document.body.dataset.tone !== tone) document.body.dataset.tone = tone;
       // 현재 장(프리, 프로, 포스트)만 하위 항목을 펼친다
-      const here = links.find((a) => a.dataset.target === ref.id);
+      const here = linkOf(ref.id);
       const scene = cur.closest('.scene');
       const group = scene ? scene.id : (here ? here.parentElement.dataset.group : '');
       items.forEach((li) => {
-        li.classList.toggle('is-group', !li.classList.contains('toc-sub') && li.dataset.group === group);
-        li.classList.toggle('is-open', li.classList.contains('toc-sub') && li.dataset.group === group);
+        const sub = li.classList.contains('toc-sub');
+        li.classList.toggle('is-group', !sub && li.dataset.group === group);
+        li.classList.toggle('is-open', sub && li.dataset.group === group);
       });
-      const active = links.find((a) => a.dataset.target === ref.id);
-      if (active && innerWidth < 1024) active.scrollIntoView({ inline: 'center', block: 'nearest' });
+      // 모바일 가로 바: 현재 항목이 가운데 오도록 바 안에서만 부드럽게 이동 (페이지 스크롤은 건드리지 않음)
+      if (here && innerWidth < 1024) {
+        toc.scrollTo({ left: here.offsetLeft - (toc.clientWidth - here.offsetWidth) / 2, behavior: 'smooth' });
+      }
+    };
+
+    const update = () => {
+      ticking = false;
+      const y = scrollY, vh = innerHeight;
+      const max = Math.max(1, document.documentElement.scrollHeight - vh);
+      const p = clamp(y / max, 0, 1);
+
+      // 진행선
+      const bw = Math.round(p * 1000);
+      if (bw !== lastBar) { lastBar = bw; bar.style.transform = `scaleX(${(bw / 1000).toFixed(3)})`; }
+
+      // 배경의 큰 로고: 첫 화면을 지나면 은은하게 나타나 스크롤에 맞춰 천천히 올라가며 돈다
+      if (mark) {
+        const k = clamp((y - vh * 0.6) / (vh * 0.6), 0, 1);
+        const mk = Math.round((p * 400 + k) * 100);
+        if (mk !== lastMark) {
+          lastMark = mk;
+          mark.style.opacity = (0.07 * k).toFixed(3);
+          mark.style.transform = `translate3d(0, ${(-p * 40).toFixed(2)}vh, 0) rotate(${(p * 18).toFixed(2)}deg)`;
+        }
+      }
+
+      // 타임코드: 스크롤 진행률 x 가상 러닝타임(24fps)
+      const frames = Math.floor(p * CONTENT.site.totalMinutes * 60 * 24);
+      const tc = `${pad2(Math.floor(frames / 86400))}:${pad2(Math.floor(frames / 1440) % 60)}:${pad2(Math.floor(frames / 24) % 60)}:${pad2(frames % 24)}`;
+      if (tc !== lastTc) { lastTc = tc; tcEl.textContent = tc; }
+
+      // 현재 섹션: 화면 45% 지점을 지난 마지막 target (미리 잰 위치로 계산)
+      let idx = 0;
+      const line = y + vh * 0.45;
+      for (let i = 0; i < tops.length; i++) if (tops[i] <= line) idx = i;
+      if (idx !== curIdx) { curIdx = idx; setSection(idx); }
 
       // 히어로를 벗어나면 목차 등장
-      toc.classList.toggle('is-on', scrollY > innerHeight * 0.55);
-      // 폰에서는 아래로 읽는 동안 상단 바를 접고, 위로 올리면 다시 보여 줌
+      const on = y > vh * 0.55;
+      if (on !== toc.classList.contains('is-on')) toc.classList.toggle('is-on', on);
+
+      // 폰에서는 아래로 읽는 동안 상단 바를 접고, 위로 올리면 다시 보여 줌.
+      // 조금씩 흔들릴 때 깜빡이지 않도록 이동량을 모아서 판단하고, 끝에서 튕기는 값은 무시
       if (innerWidth < 1024) {
-        const dy = scrollY - lastY;
-        if (Math.abs(dy) > 6) toc.classList.toggle('is-hidden', dy > 0 && scrollY > innerHeight);
-      }
-      lastY = scrollY;
+        const yy = clamp(y, 0, max);
+        const dy = yy - lastY;
+        lastY = yy;
+        if (dy * acc < 0) acc = 0;
+        acc += dy;
+        let next = hidden;
+        if (acc > 48 && yy > vh) next = true;
+        else if (acc < -20 || yy < vh) next = false;
+        if (next !== hidden) { hidden = next; acc = 0; toc.classList.toggle('is-hidden', hidden); }
+      } else if (hidden) { hidden = false; toc.classList.remove('is-hidden'); }
     };
-    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
     addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll);
-    update();
+    addEventListener('resize', measure);
+    addEventListener('load', measure);
+    addEventListener('tocrecalc', measure);       // 스크롤 효과 위치가 다시 계산될 때
+    measure();
   }
 
   // 앵커 클릭: 부드럽게 이동 (가로 스크롤 구간은 pin 시작 위치로)
@@ -880,7 +918,8 @@
       return;
     }
     gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.config({ ignoreMobileResize: true });   // 폰 주소창이 접힐 때 다시 계산하며 튀는 것을 막음
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    ScrollTrigger.addEventListener('refresh', () => dispatchEvent(new Event('tocrecalc')));   // 폰 주소창이 접힐 때 다시 계산하며 튀는 것을 막음
 
     // Lenis 부드러운 스크롤 (ScrollTrigger와 동기화)
     if (typeof Lenis !== 'undefined' && !touch) {          // 터치 기기는 기본 관성 스크롤이 가장 자연스러움
