@@ -29,7 +29,7 @@
     /* 사진 교체: src 를 채우면 해당 슬롯의 대체 사진이 내 사진으로 바뀝니다.
        alt 는 화면 낭독용 설명이니 어떤 사진인지 적어 주세요. 캡션은 사진 아래에 보입니다. */
     images: {
-      intro: { src: '', alt: '카메라 뷰파인더 화면. 녹화 표시와 초점 박스 한가운데에 영상놀 호랑이 로고가 놓여 있다' }
+      hero: { src: '', alt: '카메라 뷰파인더 화면. 녹화 표시와 초점 박스가 보이는 밝은 촬영 스튜디오' }
     },
 
     intro: {
@@ -933,6 +933,8 @@
     const hi = [$('.hero__top'), ...$$('.hero__inner > *')];
     gsap.set(hi, { opacity: 0, y: 24 });
     gsap.to(hi, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: 0.35, delay: 0.25 });
+    gsap.fromTo('.hero__bg [data-slot] img', { scale: 1 }, { scale: 1.08, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.fromTo('#heroShade', { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom 35%', scrub: true } });
     gsap.fromTo('#heroLogo', { scale: 1 }, { scale: 1.12, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('.hero__inner', { y: -60, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#hero', start: '30% top', end: 'bottom top', scrub: true } });
 

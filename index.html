@@ -43,6 +43,14 @@
 
   <!-- 히어로: 큰 제목과 영상놀 로고 -->
   <header class="hero" id="hero" data-scene="처음">
+    <div class="hero__bg">
+      <div data-slot="hero">
+        <img src="assets/hero.jpg" width="2000" height="1031" fetchpriority="high"
+             alt="카메라 뷰파인더 화면. 녹화 표시와 초점 박스가 보이는 밝은 촬영 스튜디오">
+      </div>
+    </div>
+    <div class="hero__scrim"></div>
+    <div class="hero__shade" id="heroShade"></div>
     <span class="hero__top wordmark" id="heroMark"></span>
     <div class="hero__inner">
       <img class="hero__logo" id="heroLogo" src="assets/logo.png" width="1000" height="1000" fetchpriority="high" alt="영상놀 로고. 글자로 이루어진 호랑이 얼굴">
@@ -61,12 +69,6 @@
         <h2 class="statement ko" id="introStatement" data-reveal></h2>
         <div class="intro__rest" id="introRest"></div>
       </div>
-      <figure class="plate plate--screen" data-reveal>
-        <div data-slot="intro">
-          <img src="assets/viewfinder.webp" width="2000" height="1031" loading="lazy" decoding="async"
-               alt="카메라 뷰파인더 화면. 녹화 표시와 초점 박스 한가운데에 영상놀 호랑이 로고가 놓여 있다">
-        </div>
-      </figure>
     </div>
   </section>
 
