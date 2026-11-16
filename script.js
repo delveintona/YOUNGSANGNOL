@@ -634,8 +634,8 @@
     outro: {
       quote: '컷은 이어붙일 때를 위해 찍는다.',
       cite: '영상놀',
-      button: '영상놀에 문의하기',
-      mail: 'mailto:hello@example.com'      // 실제 이메일 주소로 바꾸세요
+      button: '영상놀 영상 보러가기',
+      mail: 'https://www.youtube.com/@youngsangnol'      // 버튼이 여는 주소 (유튜브 채널)
     },
 
     footer: {
@@ -762,7 +762,7 @@
 
     // 마무리와 푸터
     const O = C.outro;
-    $('#outroBox').innerHTML = `<blockquote data-reveal class="ko">${esc(O.quote)}</blockquote><cite data-reveal>${esc(O.cite)}</cite><a class="btn btn--primary" href="${esc(O.mail)}" data-reveal>${esc(O.button)}</a>`;
+    $('#outroBox').innerHTML = `<blockquote data-reveal class="ko">${esc(O.quote)}</blockquote><cite data-reveal>${esc(O.cite)}</cite><a class="btn btn--primary" href="${esc(O.mail)}" target="_blank" rel="noopener" data-reveal>${esc(O.button)}</a>`;
     const fl = $('#footLinks'); fl.style.display = 'flex'; fl.style.gap = 'var(--space-lg)';
     fl.innerHTML = C.footer.links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join('');
 
